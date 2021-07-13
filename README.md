@@ -13,6 +13,8 @@ Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), a
   <span> SPARClink workflow </span>
 </p>
 
+Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)
+
 ## Created by 
 * Sanjay Soundarajan
 * Monalisa Achalla
