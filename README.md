@@ -13,6 +13,20 @@ Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), a
   <span> SPARClink workflow </span>
 </p>
 
+## Run the project
+The development environment uses Anaconda to keep track of the python dependencies.
+
+``` bash
+git clone https://github.com/SPARC-FAIR-Codeathon/SPARClink.git
+cd SPARClink
+conda env create -f environment.yml
+conda activate sparclink
+
+cd frontend
+npm install
+```
+
+
 Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)
 
 ## Created by 
