@@ -22,6 +22,11 @@ cd SPARClink
 conda env create -f environment.yml
 conda activate sparclink
 
+## Run the backend python server
+cd backend
+python api.py
+
+## Run the front end
 cd frontend
 npm install
 ```
