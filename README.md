@@ -14,7 +14,7 @@ Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), a
 </p>
 
 ## Run the project
-The development environment uses Anaconda to keep track of the python dependencies.
+The development environment uses Anaconda to keep track of the python dependencies. Download Anaconda here: [Anaconda Individual Edition](https://www.anaconda.com/products/individual)
 
 ``` bash
 git clone https://github.com/SPARC-FAIR-Codeathon/SPARClink.git
