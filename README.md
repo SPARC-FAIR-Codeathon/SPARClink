@@ -8,7 +8,7 @@ SPARClink is a tool that shows the impact of SPARC generated datasets and their 
 Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), and the SPARC Airtable database. This information is queried against the [NIH Reporter](https://api.reporter.nih.gov/) and [Google Scholar](https://serpapi.com/google-scholar-api) to extract citations and create a well connected graph using [d3.js](https://d3js.org/). 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/21206996/125396344-41311280-e361-11eb-9a46-1d04adb4afe8.png" />
+  <img src="https://user-images.githubusercontent.com/21206996/125404035-07fda000-e36b-11eb-8b3c-b6692a3bfadb.png" />
   <br/>
   <span> SPARClink workflow </span>
 </p>
