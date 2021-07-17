@@ -49,6 +49,21 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
                 self.assertEquals(sub_proj['terms'], sub_record['keywords'])
             
         return
+    
+    def test_NIHPublications (self):
+        with open('./Scrapers/tests/test_response_2.txt', 'r') as f:
+            jsonData = json.loads(f.read())
+            record = self.generateRecord(jsonData)
+
+            publications = {}
+            for k in record:
+                item = record[k]
+                pubRecord = self.getPublications(item['appl_id'])
+                publications.update(pubRecord)
+
+        
+        self.assertEquals(len(publications), 5)
+        return
 
 if __name__ == '__main__':
     unittest.main()
