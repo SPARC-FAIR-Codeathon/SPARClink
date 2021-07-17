@@ -2,7 +2,7 @@
 SPARClink: Visualizing the Impact of SPARC
 
 ## What is SPARClink?
-SPARClink is a tool that shows the impact of SPARC generated datasets and their publications on the overall research landscape. This tool is meant to create interactive visualizations (graphs) on the relationships (citations) between datasets, protoccols publications and other external resources. This project was created during the 2021 SPARC FAIR Codeathon.
+SPARClink is a tool that shows the impact of SPARC generated datasets and their publications on the overall research landscape. This tool is meant to create interactive visualizations (graphs) on the relationships (citations) between datasets, protocols, publications, and other external resources. This project was created during the 2021 SPARC FAIR Codeathon.
 
 ## How it works
 Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), and the SPARC Airtable database. This information is queried against the [NIH Reporter](https://api.reporter.nih.gov/) and [Google Scholar](https://serpapi.com/google-scholar-api) to extract citations and create a well connected graph using [d3.js](https://d3js.org/). 
