@@ -50,6 +50,11 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
             
         return
     
+    #----------------------------------------------------
+    # test_NIHPublications:
+    # Check to see whether the publications retrieved from the test NIH reponse data in test_response_2.txt
+    # matches the number of publications shown in the website (which is 5).
+    #----------------------------------------------------
     def test_NIHPublications (self):
         with open('./Scrapers/tests/test_response_2.txt', 'r') as f:
             jsonData = json.loads(f.read())
@@ -64,6 +69,20 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
         
         self.assertEquals(len(publications), 5)
         return
+    
+    #----------------------------------------------------
+    # test_PublicationsOfDatasets:
+    # Check whether the publications retrieved from the NCBI eutils API for a known
+    # dataset doi matches the result we found from a web search.
+    #----------------------------------------------------
+    def test_PublicationsOfDatasets (self):
+        pubData = self.getPublicationsOfDataset('10.26275/DUZ8-MQ3N')
+        self.assertEquals(len(pubData), 1)
+        
+        for k in pubData:
+            self.assertEquals(pubData[k]['title'], 'Computational analysis of mechanical stress in colonic diverticulosis')
+        return
+
 
 if __name__ == '__main__':
     unittest.main()
