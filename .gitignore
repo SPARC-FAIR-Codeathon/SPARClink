@@ -263,3 +263,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.dataset_description.xlsx
