@@ -1,5 +1,4 @@
 ###### Requirements without Version Specifiers ######`
 tqdm
 pyopenxl
-boto3
 pandas

@@ -2,6 +2,7 @@
 
 ## Example response
 ## always returned as a list of datasets
+# originating article is the paper associated with the dataset. 
 
 '''
 [..., {
@@ -15,25 +16,25 @@
         'id': 'db090035-8a57-4474-8c3d-2536dee9499f', 
         'principal_investigator': 'GRILL, WARREN M.', 
         'title': 'MODELING ACTIVATION AND BLOCK OF AUTONOMIC NERVES FOR ANALYSIS AND DESIGN', 
-        'award_id': 'OT2OD025340'}, 'versionPublishedAt': '2020-10-01T15:41:57.651749Z', 
-        'datasetDOI': 'https://dx.doi.org/10.26275/maq2-eii4', 
-        'tags': [
-            'vagus nerve stimulation', 
-            'neural anatomy', 
-            'vagus nerve morphology', 
-            'autonomic nervous system'], 
-        'contributors': [
-            {'firstName': 'Nicole', 'middleInitial': 'A', 'lastName': 'Pelot', 'degree': 'Ph.D.', 'orcid': '0000-0003-2844-0190'}, 
-            {'firstName': 'Gabriel', 'middleInitial': 'B', 'lastName': 'Goldhagen', 'degree': None, 'orcid': None}, 
-            {'firstName': 'Jake', 'middleInitial': 'E', 'lastName': 'Cariello', 'degree': None, 'orcid': None}, 
-            {'firstName': 'Warren', 'middleInitial': 'M', 'lastName': 'Grill', 'degree': 'Ph.D.', 'orcid': '0000-0001-5240-6588'}], 
-        'originatingArticleDOI': [], 
-        'protocolsDOI': ['dx.doi.org/10.17504/protocols.io.6bvhan6']}, ...]
+        'award_id': 'OT2OD025340'}, 
+    'versionPublishedAt': '2020-10-01T15:41:57.651749Z', 
+    'datasetDOI': 'https://dx.doi.org/10.26275/maq2-eii4', 
+    'tags': [
+        'vagus nerve stimulation', 
+        'neural anatomy', 
+        'vagus nerve morphology', 
+        'autonomic nervous system'], 
+    'contributors': [
+        {'firstName': 'Nicole', 'middleInitial': 'A', 'lastName': 'Pelot', 'degree': 'Ph.D.', 'orcid': '0000-0003-2844-0190'}, 
+        {'firstName': 'Gabriel', 'middleInitial': 'B', 'lastName': 'Goldhagen', 'degree': None, 'orcid': None}, 
+        {'firstName': 'Jake', 'middleInitial': 'E', 'lastName': 'Cariello', 'degree': None, 'orcid': None}, 
+        {'firstName': 'Warren', 'middleInitial': 'M', 'lastName': 'Grill', 'degree': 'Ph.D.', 'orcid': '0000-0001-5240-6588'}], 
+    'originatingArticleDOI': [], 
+    'protocolsDOI': ['dx.doi.org/10.17504/protocols.io.6bvhan6']}, ...]
 '''
 
 
 ### Import required python modules
-import boto3
 import requests
 import pandas as pd
 from tqdm import tqdm
@@ -153,6 +154,7 @@ def get_list_of_datasets_with_metadata(list_of_datasets):
 
     return list_of_datasets
 
-datset_list = []
-datset_list = get_list_of_datasets_with_metadata(list_of_datasets)
-print(datset_list)
+
+dataset_list = []
+dataset_list = get_list_of_datasets_with_metadata(dataset_list)
+print(dataset_list)
