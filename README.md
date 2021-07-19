@@ -1,5 +1,43 @@
-# SPARClink
-SPARClink: Visualizing the Impact of SPARC
+
+
+<p align="center">
+  <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink">
+    <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/logo.svg" alt="SPARC link logo" height="150">
+  </a>
+  <br/>
+  <p align="center"> 
+    Visualizing the Impact of SPARC
+  </p>
+</p>
+
+<p align="center">
+    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/LICENSE" alt="GitHub license">
+        <img src="https://img.shields.io/github/license/SPARC-FAIR-Codeathon/SPARClink" />
+    </a>
+    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/stargazers" alt="GitHub stars">
+        <img src="https://img.shields.io/github/stars/SPARC-FAIR-Codeathon/SPARClink" />
+    </a>
+    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/network" alt="GitHub forks">
+        <img src="https://img.shields.io/github/forks/SPARC-FAIR-Codeathon/SPARClink" />
+    </a>
+    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/issues" alt="GitHub issues">
+        <img src="https://img.shields.io/github/issues/SPARC-FAIR-Codeathon/SPARClink" />
+    </a>
+    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/graphs/contributors">
+        <img src="https://img.shields.io/github/contributors/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub contributors">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/github/last-commit/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub last commit">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/tokei/lines/github/SPARC-FAIR-Codeathon/SPARClink" alt="Lines of code">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/github/repo-size/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub repo size">
+    </a>
+</p>
+
+
 
 ## What is SPARClink?
 SPARClink is a tool that shows the impact of SPARC generated datasets and their publications on the overall research landscape. This tool is meant to create interactive visualizations (graphs) on the relationships (citations) between datasets, protocols, publications, and other external resources. This project was created during the 2021 SPARC FAIR Codeathon.
