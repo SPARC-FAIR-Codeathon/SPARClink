@@ -5,11 +5,9 @@
     <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/logo.svg" alt="SPARC link logo" height="150">
   </a>
   <br/>
-  <p align="center"> 
-    <strong>
-      Visualizing the Impact of SPARC
-    </strong>
-  </p>
+  <h3 align="center">
+    Visualizing the Impact of SPARC
+  </h3>
 </p>
 
 <p align="center">
