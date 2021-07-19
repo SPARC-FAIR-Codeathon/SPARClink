@@ -33,9 +33,6 @@
     <img src="https://img.shields.io/tokei/lines/github/SPARC-FAIR-Codeathon/SPARClink" alt="Lines of code">
   </a>
   <a href="#">
-    <img src="https://img.shields.io/github/repo-size/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub repo size">
-  </a>
-  <a href="#">
     <img src="https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github" alt="Open Source? Yes!">
   </a>
   <br/> 
