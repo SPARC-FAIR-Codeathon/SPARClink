@@ -45,6 +45,9 @@
 ## What is SPARClink?
 SPARClink is a tool that shows the impact of SPARC generated datasets and their publications on the overall research landscape. This tool is meant to create interactive visualizations (graphs) on the relationships (citations) between datasets, protocols, publications, and other external resources. This project was created during the 2021 SPARC FAIR Codeathon.
 
+## Problem Definition
+Add content here
+
 ## How it works
 Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), and the SPARC Airtable database. This information is queried against the [NIH Reporter](https://api.reporter.nih.gov/) and [Google Scholar](https://serpapi.com/google-scholar-api) to extract citations and create a well connected graph using [d3.js](https://d3js.org/). 
 
@@ -53,6 +56,9 @@ Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), a
   <br/>
   <span> SPARClink workflow </span>
 </p>
+
+## Origin Story
+Add content here
 
 ## Run the project
 The development environment uses Anaconda to keep track of the python dependencies. Download Anaconda here: [Anaconda Individual Edition](https://www.anaconda.com/products/individual)
@@ -80,3 +86,4 @@ Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARCli
 * Monalisa Achalla
 * Jongchan Kim
 * Ashutosh Singh
+* Sachira Kuruppu
