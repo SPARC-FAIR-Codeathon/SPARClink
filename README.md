@@ -82,8 +82,8 @@ npm install
 Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)
 
 ## Created by 
-* Sanjay Soundarajan
-* Monalisa Achalla
-* Jongchan Kim
-* Ashutosh Singh
-* Sachira Kuruppu
+* [Sanjay Soundarajan](https://github.com/megasanjay)
+* [Monalisa Achalla](https://github.com/a-monalisa)
+* [Jongchan Kim](https://github.com/Kim-Jongchan)
+* [Ashutosh Singh](https://github.com/Ashutosh1712)
+* [Sachira Kuruppu](https://github.com/rsachira-abi)
