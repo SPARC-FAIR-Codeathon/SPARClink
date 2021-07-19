@@ -1,0 +1,55 @@
+@import './_variables.scss';
+
+.svg-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: inherit;
+  vertical-align: middle;
+  fill: none;
+  stroke: currentColor;
+}
+
+.svg-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.svg-up {
+  /*default*/
+  transform: rotate(0deg);
+}
+
+.svg-right {
+  transform: rotate(90deg);
+}
+
+.svg-down {
+  transform: rotate(180deg);
+  &.svg-flip {
+    transform: rotate(180deg) scaleX(-1);
+  }
+}
+
+.svg-left {
+  transform: rotate(-90deg);
+}
+
+.tools {
+  cursor: pointer;
+  color: $glial;
+  margin-left: 8px;
+
+  &:hover, &:focus, &:active {
+    color: $dopamine;
+  }
+}
+
+#kitchen_timer .cls-1 {
+  fill: transparent;
+}
+.icon-procedure {
+  .cls-1 {
+    fill: #fff;
+  }
+}

@@ -1,0 +1,16 @@
+$space: 8;
+
+@for $i from 0 through 8 {
+  .mb-#{$space * $i} {
+    margin-bottom: #{$space * $i}px;
+  }
+  .mt-#{$space * $i} {
+    margin-top: #{$space * $i}px;
+  }
+  .ml-#{$space * $i} {
+    margin-left: #{$space * $i}px;
+  }
+  .mr-#{$space * $i} {
+    margin-right: #{$space * $i}px;
+  }
+}

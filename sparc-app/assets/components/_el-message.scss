@@ -1,0 +1,37 @@
+@import '../_variables.scss';
+
+.el-message {
+  padding: 15px 3px 15px 15px;
+  @media screen and (max-width: 767px) {
+    min-width: 250px;
+  }
+  .el-message__closeBtn {
+    color: #9CA1A3;
+    transform: scale(0.8);
+    top: 35%;
+  }
+  &.el-message--success {
+    background-color: #F7FFEE;
+    border: 1px solid #5E9F69;
+    .el-icon-circle-check {
+      color: #5E9F69;
+      -webkit-text-stroke-width: 0.016rem;
+      padding-right: 15px;
+    }
+    .el-message__content {
+      color: #303133;
+    }
+  }
+  &.el-message--error {
+    background-color: #EEDAD9;
+    border: 1px solid #B51D09;
+    .el-icon-circle-close {
+      color: #B51D09;
+      -webkit-text-stroke-width: 0.016rem;
+      padding-right: 15px;
+    }
+    .el-message__content {
+      color: #303133;
+    }
+  }
+}

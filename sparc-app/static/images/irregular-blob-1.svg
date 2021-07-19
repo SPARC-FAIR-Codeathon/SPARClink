@@ -1,0 +1,13 @@
+<svg viewBox="0 0 616 560" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="93.4974993%" y1="56.2320396%" x2="37.3502355%" y2="66.2097802%" id="linearGradient-1">
+            <stop stop-color="#EDF1FC" offset="0%"></stop>
+            <stop stop-color="#EDF1FC" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="round-I" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="dp-landing-filter1" transform="translate(-65.000000, 0.000000)" fill="url(#linearGradient-1)">
+            <path d="M506.166728,491.080683 C724.619869,433.512911 542.561344,221.391237 576.958826,48.608713 C611.356309,-124.173811 716.391276,-344.12827 474.299195,-344.12827 C232.207114,-344.12827 -176.50416,-197.643159 -143.840513,39.224121 C-111.176866,276.091401 287.713587,548.648456 506.166728,491.080683 Z" id="Oval-Copy" transform="translate(241.814506, 77.371730) rotate(-339.000000) translate(-241.814506, -77.371730) "></path>
+        </g>
+    </g>
+</svg>

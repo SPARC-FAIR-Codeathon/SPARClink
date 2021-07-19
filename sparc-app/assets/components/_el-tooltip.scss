@@ -1,0 +1,91 @@
+@import '../_variables.scss';
+
+.el-tooltip__popper{
+    background: rgb(243, 236, 246) !important;
+    border: 1px solid rgb(131, 0, 191) !important;
+    color: rgb(48, 49, 51);
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
+}
+
+.el-tooltip__popper[x-placement^=top] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=left] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=right] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=bottom] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=top-start] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=top-start] .popper__arrow{
+    left: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=top-end] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=top-end] .popper__arrow{
+    right: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=left-start] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=left-start] .popper__arrow{
+    top: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=left-end] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=left-end] .popper__arrow{
+    bottom: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=right-start] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=right-start] .popper__arrow{
+    top: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=right-end] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=right-end] .popper__arrow{
+    bottom: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=bottom-start] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=bottom-start] .popper__arrow{
+    left: 6px!important;
+}
+
+.el-tooltip__popper[x-placement^=bottom-end] .popper__arrow:after{
+    border-top-color:  rgb(243, 236, 246)!important;
+}
+
+.el-tooltip__popper[x-placement^=bottom-end] .popper__arrow{
+    right: 6px!important;
+}
+

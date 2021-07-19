@@ -1,0 +1,13 @@
+<svg viewBox="0 0 424 424" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="79.2310356%" y1="-1.71266658%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#F7F9FE" offset="0%"></stop>
+            <stop stop-color="#EDF1FC" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="round-I" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="dp-landing-filter1" transform="translate(-788.000000, -95.000000)" fill="url(#linearGradient-1)">
+            <circle id="Oval" cx="1000" cy="307" r="212"></circle>
+        </g>
+    </g>
+</svg>
