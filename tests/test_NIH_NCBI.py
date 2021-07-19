@@ -1,8 +1,8 @@
 import json
 import unittest
-from Scrapers.NIHScraper import NIHScraper
+from ExternalAPIs.NIH_NCBI import NIH_NCBI
 
-class TestNIHScraper(unittest.TestCase, NIHScraper):
+class TestNIH_NCBI(unittest.TestCase, NIH_NCBI):
 
     #----------------------------------------------------
     # test_NIHFundingDetailsPayload:
@@ -10,10 +10,10 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
     # Check whether our generated payload matches example in the documentatio.
     #----------------------------------------------------
     def test_NIHFundingDetailsPayload (self):
-        payload = self._NIHScraper__generateFundingDetailsPayload('5UG1HD0784*')
+        payload = self._generateFundingDetailsPayload('5UG1HD0784*')
         self.assertEquals(payload.replace(" ", ""), '{"criteria":{"project_nums":"5UG1HD0784*"}}', msg='[ERROR] Generating payload failed.')
 
-        payload = self._NIHScraper__generateFundingDetailsPayload(['5UG1HD078437-07', '5R01DK102815-05'])
+        payload = self._generateFundingDetailsPayload(['5UG1HD078437-07', '5R01DK102815-05'])
         self.assertEquals(payload.replace(" ", ""), '{"criteria":{"project_nums":["5UG1HD078437-07","5R01DK102815-05"]}}', msg='[ERROR] Generating payload failed.')
         return
 
@@ -36,7 +36,7 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
     # is correct.
     #----------------------------------------------------
     def test_NIHRecord (self):
-        with open('./Scrapers/tests/test_response.txt', 'r') as f:
+        with open('./tests/test_response.txt', 'r') as f:
             jsonData = json.loads(f.read())
             record = self.generateRecord(jsonData)
             
@@ -50,8 +50,13 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
             
         return
     
+    #----------------------------------------------------
+    # test_NIHPublications:
+    # Check to see whether the publications retrieved from the test NIH reponse data in test_response_2.txt
+    # matches the number of publications shown in the website (which is 5).
+    #----------------------------------------------------
     def test_NIHPublications (self):
-        with open('./Scrapers/tests/test_response_2.txt', 'r') as f:
+        with open('./tests/test_response_2.txt', 'r') as f:
             jsonData = json.loads(f.read())
             record = self.generateRecord(jsonData)
 
@@ -64,6 +69,20 @@ class TestNIHScraper(unittest.TestCase, NIHScraper):
         
         self.assertEquals(len(publications), 5)
         return
+    
+    #----------------------------------------------------
+    # test_PublicationsOfDatasets:
+    # Check whether the publications retrieved from the NCBI eutils API for a known
+    # dataset doi matches the result we found from a web search.
+    #----------------------------------------------------
+    def test_PublicationsOfDatasets (self):
+        pubData = self.getPublicationsOfDataset('10.26275/DUZ8-MQ3N')
+        self.assertEquals(len(pubData), 1)
+        
+        for k in pubData:
+            self.assertEquals(pubData[k]['title'], 'Computational analysis of mechanical stress in colonic diverticulosis')
+        return
+
 
 if __name__ == '__main__':
     unittest.main()
