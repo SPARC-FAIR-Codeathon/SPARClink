@@ -1,4 +1,4 @@
-
+<br/> <br/>
 
 <p align="center">
   <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink">
@@ -6,35 +6,38 @@
   </a>
   <br/>
   <p align="center"> 
-    Visualizing the Impact of SPARC
+    <strong>
+      Visualizing the Impact of SPARC
+    </strong>
   </p>
 </p>
 
 <p align="center">
-    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/LICENSE" alt="GitHub license">
-        <img src="https://img.shields.io/github/license/SPARC-FAIR-Codeathon/SPARClink" />
-    </a>
-    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/stargazers" alt="GitHub stars">
-        <img src="https://img.shields.io/github/stars/SPARC-FAIR-Codeathon/SPARClink" />
-    </a>
-    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/network" alt="GitHub forks">
-        <img src="https://img.shields.io/github/forks/SPARC-FAIR-Codeathon/SPARClink" />
-    </a>
-    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/issues" alt="GitHub issues">
-        <img src="https://img.shields.io/github/issues/SPARC-FAIR-Codeathon/SPARClink" />
-    </a>
-    <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/graphs/contributors">
-        <img src="https://img.shields.io/github/contributors/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub contributors">
-    </a>
-    <a href="#">
-        <img src="https://img.shields.io/github/last-commit/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub last commit">
-    </a>
-    <a href="#">
-        <img src="https://img.shields.io/tokei/lines/github/SPARC-FAIR-Codeathon/SPARClink" alt="Lines of code">
-    </a>
-    <a href="#">
-        <img src="https://img.shields.io/github/repo-size/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub repo size">
-    </a>
+  <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/LICENSE" alt="GitHub license">
+    <img src="https://img.shields.io/github/license/SPARC-FAIR-Codeathon/SPARClink" />
+  </a>
+  <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/stargazers" alt="GitHub stars">
+    <img src="https://img.shields.io/github/stars/SPARC-FAIR-Codeathon/SPARClink" />
+  </a>
+  <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/network" alt="GitHub forks">
+    <img src="https://img.shields.io/github/forks/SPARC-FAIR-Codeathon/SPARClink" />
+  </a>
+  <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/issues" alt="GitHub issues">
+    <img src="https://img.shields.io/github/issues/SPARC-FAIR-Codeathon/SPARClink" />
+  </a>
+  <a href="https://github.com/SPARC-FAIR-Codeathon/SPARClink/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub contributors">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/github/last-commit/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub last commit">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/tokei/lines/github/SPARC-FAIR-Codeathon/SPARClink" alt="Lines of code">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/github/repo-size/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub repo size">
+  </a>
+  <br/> 
 </p>
 
 
