@@ -47,9 +47,9 @@ class NIH_NCBI:
     def _generateNCBIpublicationRecord (self, jsonPub):
         data = {}
 
-        data['title'] = jsonPub['title']
+        data['title']  = jsonPub['title']
         data['jounal'] = jsonPub['source']
-        data['year'] = jsonPub['pubdate'].split(' ')[0]
+        data['year']   = jsonPub['pubdate'].split(' ')[0]
 
         author_list = ''
         for author in jsonPub['authors']:
@@ -72,9 +72,9 @@ class NIH_NCBI:
         record = {}
         if (resp.status_code == 200):
             jsonData = json.loads(resp.content)
-            record = self.__generateNCBIpublicationRecord(jsonData['result'][str(pm_id)])
+            record = self._generateNCBIpublicationRecord(jsonData['result'][str(pm_id)])
             if 'doi' not in record:
-                record['doi'] = pm_id # We use the doi as the key. This will help debug publications without doi
+                record['doi'] = 'pmid_' + pm_id # We use the doi as the key. This will help debug publications without doi
 
         return record
 
@@ -91,7 +91,7 @@ class NIH_NCBI:
             jsonData = json.loads(resp.content)
             record = self._generateNCBIpublicationRecord(jsonData['result'][str(pmc_id)])
             if 'doi' not in record:
-                record['doi'] = pmc_id #We use the doi as the key. This will help debug publicastions without doi
+                record['doi'] = 'pmcid_' + pmc_id #We use the doi as the key. This will help debug publicastions without doi
         
         return record
     
@@ -152,11 +152,12 @@ class NIH_NCBI:
                 pubmed_data  = self._getPublicationFromPubmed(pub['pm_id'])
 
                 data = {}
-                data['title']   = pub['pub_title']
-                data['authors'] = pub['author_list']
-                data['journal'] = pub['journal_title']
-                data['year']    = pub['pub_year']
-                data['url']     = pub['journal_title_link']['value']
+                data['title']       = pub['pub_title']
+                data['journal']     = pub['journal_title']
+                data['year']        = pub['pub_year']
+                data['author_list'] = pub['author_list']
+                data['url']         = pub['journal_title_link']['value']
+                data['doi']         = pubmed_data['doi']
 
                 record[pubmed_data['doi']] = data
                 

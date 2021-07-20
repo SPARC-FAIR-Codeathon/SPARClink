@@ -2,6 +2,9 @@
 # FirebaseCentralDB.py
 # This script uses the external APIs to query all the datasets and papers associated with them,
 # insert add them to a firebase central database.
+#
+# Author: Sachira Kuruppu
+# Date  : 20/07/2021
 #--------------------------------------------------------------
 
 import pyrebase
@@ -23,64 +26,96 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth     = firebase.auth()
 
-email    = 'nah_ncbi@sparclink.com'#input('Enter email: ')
-passw    = '123456'#input('Enter password: ')
+email    = 'nah_ncbi@sparclink.com' #input('Enter email: ')
+passw    = '123456' #input('Enter password: ')
 user     = auth.sign_in_with_email_and_password(email, passw)
 
 db = firebase.database()
-award_db   = firebase.database().child(user['localId']).child('Awards')
-dataset_db = firebase.database().child(user['localId']).child('Datasets')
-paper_db   = firebase.database().child(user['localId']).child('Papers')
-
 NN = NIH_NCBI()
 
-# Get all the datasets from Sparc Portal
-sparc_dataset_list = []
-sparc_dataset_list = get_list_of_datasets_with_metadata(sparc_dataset_list)
+def main():
+    # Get all the datasets from Sparc Portal
+    sparc_dataset_list = []
+    sparc_dataset_list = get_list_of_datasets_with_metadata(sparc_dataset_list)
 
-disallowed_chars = {ord(c):None for c in "$#[]/. "}
+    disallowed_chars = {ord(c):None for c in "$#[]/. "}
 
-for dataset in sparc_dataset_list:
-    # Insert the dataset to the database
-    dataset_key = dataset['datasetDOI'].translate(disallowed_chars)
-    
-    dataset_record                  = {}
-    dataset_record['doi']           = dataset['datasetDOI']
-    dataset_record['name']          = dataset['name']
-    dataset_record['description']   = dataset['description']
-    dataset_record['project_num']   = dataset['properties']['award_id']
-    dataset_record['protocol_dois'] = dataset['protocolsDOI']
-    dataset_record['tags']          = dataset['tags']
+    i = 0
+    for dataset in sparc_dataset_list:
+        print('Processing dataset: ' + str(i))
+        i += 1
 
-    db.child(user['localId']).child('Datasets').update({dataset_key: dataset_record}, user['idToken'])
+        # Insert the dataset to the database
+        dataset_key = dataset['datasetDOI'].translate(disallowed_chars)
 
-    # Find the funding awards (NIH) associated with the datasets. Add to award db
-    award_record              = NN.generateRecord(NN.getProjectFundingDetails([ dataset_record['project_num'] ]))
-    db.child(user['localId']).child('Awards').update({dataset_record['project_num']: award_record}, user['idToken'])
-    
-#    # Find papers associated with the dataset
-#    dataset_pub_records = NN.getPublicationsOfDataset(dataset_doi.split('./org')[1])
-#    for k in dataset_pub_records:
-#        dataset_pub_records[k]['dataset'] = dataset_doi
-#    
-#    # Find papers associated with the award
-#    funding_publications = {}
-#    for k in award_record:
-#        item = award_record[k]
-#        pub_record = NN.getPublications(item['appl_id'])
-#        funding_publications.update(pub_record)
-#    
-#    # Add the papers to the award db record
-#    award_record['papers']    = []
-#    for paper_doi in funding_publications:
-#        award_record.append(paper_doi)
-    
+        dataset_record                  = {}
+        dataset_record['doi']           = dataset['datasetDOI']
+        dataset_record['name']          = dataset['name']
+        dataset_record['description']   = dataset['description']
+        dataset_record['award']         = dataset['properties']['award_id']
+        dataset_record['protocols']     = [ p.translate(disallowed_chars) for p in dataset['protocolsDOI'] ]
+        dataset_record['tags']          = dataset['tags']
+
+        db.child(user['localId']).child('Datasets').update({dataset_key: dataset_record}, user['idToken'])
+
+        # Find papers associated with the dataset. Upload.
+        j = 0
+        dataset_pub_records = NN.getPublicationsOfDataset(dataset_record['doi'].split('.org/')[1])
+        for k in dataset_pub_records:
+            print('--- Processing paper: ' + str(j))
+            j += 1
+
+            paper_key = k.translate(disallowed_chars)
+            dataset_pub_records[k]['datasets'] = [dataset_key]
+            dataset_pub_records[k]['awards']   = []
+            dataset_pub_records[k]['papers']   = []
+
+            uploadPaperOrUpdate(paper_key, 'datasets', dataset_pub_records[k])
+
+        # Find the funding awards (NIH) associated with the datasets. Add to award db
+        print('- Processing awards')
+        award_record = NN.generateRecord(NN.getProjectFundingDetails([ dataset_record['award'] ]))
+        db.child(user['localId']).child('Awards').update({dataset_record['award']: award_record}, user['idToken'])
+
+        # Find the papers associated with the award. Upload.
+        award_pub = {}
+        for k in award_record:
+            sub_award = award_record[k]
+            pubs = NN.getPublications(sub_award['appl_id'])
+            award_pub.update(pubs)
+
+        for k in award_pub:
+            paper_key = k.translate(disallowed_chars)
+            award_pub[k]['datasets'] = []
+            award_pub[k]['awards']   = [dataset_record['award']]
+            award_pub[k]['papers']   = []
+
+            uploadPaperOrUpdate(paper_key, 'awards', award_pub[k])
 
 
-#db.child(user['localId']).push('james', user['idToken'])
+    return
 
-# NIH = NIH_NCBI()
-# project_num = 'OT3OD025349'
-# funding_details = NIH.getProjectFundingDetails([project_num])
-# funding_report = NIH.generateRecord(funding_details)
-# db.set({project_num: funding_report}, user['idToken'])
+#-----------------------------------------------------------------------------------
+# uploadPaperOrUpdate:
+# Upload the given paper record 'newPaper' to the database if does not exist. If it
+# exists, update the field (list) stipulated by 'update_key' (which can be datasets,
+# awards, or papers) by appending the values in 'newPaper'.
+#-----------------------------------------------------------------------------------
+def uploadPaperOrUpdate(paper_key, update_key, newPaper):
+    # See if the db already has this paper
+    pub_data = db.child(user['localId']).child('Papers').child(paper_key).get(user['idToken']).val()
+    if pub_data is None:
+        # The db does not have this paper
+        db.child(user['localId']).child('Papers').update({paper_key: newPaper}, user['idToken'])
+    else:
+        # The db has this paper. Only update the datasets field
+        update_field = pub_data[update_key]
+        update_field.append(newPaper[update_key])
+        update_field = set(update_field) # remove duplicates
+        db.child(user['localId']).child('Papers').child(paper_key).update({update_key: list(update_field)}, user['idToken'])
+    return
+
+if __name__ == '__main__':
+    main()
+
+
