@@ -9,6 +9,7 @@
 import time
 import json
 import requests
+import urllib.parse as urlparser
 from requests.structures import CaseInsensitiveDict
 
 class NIH_NCBI:
@@ -72,6 +73,8 @@ class NIH_NCBI:
         if (resp.status_code == 200):
             jsonData = json.loads(resp.content)
             record = self.__generateNCBIpublicationRecord(jsonData['result'][str(pm_id)])
+            if 'doi' not in record:
+                record['doi'] = pm_id # We use the doi as the key. This will help debug publications without doi
 
         return record
 
@@ -87,6 +90,9 @@ class NIH_NCBI:
         if (resp.status_code == 200):
             jsonData = json.loads(resp.content)
             record = self._generateNCBIpublicationRecord(jsonData['result'][str(pmc_id)])
+            if 'doi' not in record:
+                record['doi'] = pmc_id #We use the doi as the key. This will help debug publicastions without doi
+        
         return record
     
     #----------------------------------------------------
@@ -165,7 +171,8 @@ class NIH_NCBI:
     #----------------------------------------------------
     def getPublicationsOfDataset (self, doi):
         self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 3)
-        resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&retmode=json&term=' + str(doi))
+        term = urlparser.quote('"' + str(doi) + '"', safe='')
+        resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&retmode=json&term=' + term)
 
         record = {}
         if (resp.status_code == 200):
