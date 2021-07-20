@@ -7,6 +7,7 @@
 # Date  : 20/07/2021
 #--------------------------------------------------------------
 
+import time
 import pyrebase
 
 from ExternalAPIs.NIH_NCBI import NIH_NCBI
@@ -26,24 +27,34 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth     = firebase.auth()
 
-email    = 'nah_ncbi@sparclink.com' #input('Enter email: ')
-passw    = '123456' #input('Enter password: ')
+email    = input('Enter email: ')
+passw    = input('Enter password: ')
 user     = auth.sign_in_with_email_and_password(email, passw)
 
 db = firebase.database()
 NN = NIH_NCBI()
 
 def main():
+    global user
+
     # Get all the datasets from Sparc Portal
     sparc_dataset_list = []
     sparc_dataset_list = get_list_of_datasets_with_metadata(sparc_dataset_list)
 
     disallowed_chars = {ord(c):None for c in "$#[]/. "}
 
+    Timestamp = time.time()
+
     i = 0
     for dataset in sparc_dataset_list:
         print('Processing dataset: ' + str(i))
         i += 1
+
+        # update the user token if its been more than 30 min
+        dt = time.time() - Timestamp
+        if (dt > 1800):
+            user = auth.refresh(user['refreshToken'])
+            Timestamp = time.time()
 
         # Insert the dataset to the database
         dataset_key = dataset['datasetDOI'].translate(disallowed_chars)
@@ -78,13 +89,21 @@ def main():
         db.child(user['localId']).child('Awards').update({dataset_record['award']: award_record}, user['idToken'])
 
         # Find the papers associated with the award. Upload.
+        j = 0
         award_pub = {}
         for k in award_record:
+            print('--- Processing paper: ' + str(j))
+            j += 1
+
             sub_award = award_record[k]
             pubs = NN.getPublications(sub_award['appl_id'])
             award_pub.update(pubs)
 
+        j = 0
         for k in award_pub:
+            print('--- Processing paper: ' + str(j))
+            j += 1
+
             paper_key = k.translate(disallowed_chars)
             award_pub[k]['datasets'] = []
             award_pub[k]['awards']   = [dataset_record['award']]
@@ -110,7 +129,7 @@ def uploadPaperOrUpdate(paper_key, update_key, newPaper):
     else:
         # The db has this paper. Only update the datasets field
         update_field = pub_data[update_key]
-        update_field.append(newPaper[update_key])
+        update_field += newPaper[update_key]
         update_field = set(update_field) # remove duplicates
         db.child(user['localId']).child('Papers').child(paper_key).update({update_key: list(update_field)}, user['idToken'])
     return
