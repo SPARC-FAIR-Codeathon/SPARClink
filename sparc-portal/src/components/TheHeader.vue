@@ -60,8 +60,14 @@
       <span class="text-white text-xs px-1 "> Need Help? </span>
     </a>
   </div>
-  <div>
-    ads
+  <div class="w-full bg-white flex flex-row py-6 px-1">
+    <div class="flex flex-row">
+      <img
+        src="https://sparc.science/_nuxt/img/logo-sparc-wave-primary.8ed83a5.svg"
+        class="w-36"
+      />
+      <div></div>
+    </div>
   </div>
 </template>
 
