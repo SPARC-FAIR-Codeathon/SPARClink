@@ -102,32 +102,35 @@ class NIH_NCBI:
     # id.
     #----------------------------------------------------
     def getCitedBy (self, id_type, id):
-        url = ''
+        urls = []
         if (id_type == 'pm_id'):
-            url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_citedin&retmode=json&id=' + str(id)
+            urls.append('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_citedin&retmode=json&id=' + str(id))
+            urls.append('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pmc_refs&retmode=json&id=' + str(id))
         elif (id_type == 'pmc_id'):
-            url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_pmc_citedby&retmode=json&id=' + str(id)
-
-        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
-        resp = requests.get(url)
-
-        if (resp.status_code != 200):
-            return {}
-        
-        jsonData = json.loads(resp.content)
-        cited_by = jsonData['linksets']['linksetdbs'][0]
+            urls.append('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_pmc_citedby&retmode=json&id=' + str(id))
 
         record = {}
-        for cited_id in cited_by['links']:
-            pub = {}
-            if (cited_by['dbto'] == 'pubmed'):
-                pub = self._getPublicationFromPubmed(cited_id)
-            elif (cited_by['dbto'] == 'pmc'):
-                pub = self._getPublicationFromPMC(cited_id)
+        
+        for url in urls:
+            self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
+            resp = requests.get(url)
 
-            # Ignore if the publication doesn't have a doi
-            if 'doi' in pub:
-                record[pub['doi']] = pub
+            if (resp.status_code != 200):
+                return {}
+        
+            jsonData = json.loads(resp.content)
+            cited_by = jsonData['linksets'][0]['linksetdbs'][0]
+
+            for cited_id in cited_by['links']:
+                pub = {}
+                if (cited_by['dbto'] == 'pubmed'):
+                    pub = self._getPublicationFromPubmed(cited_id)
+                elif (cited_by['dbto'] == 'pmc'):
+                    pub = self._getPublicationFromPMC(cited_id)
+
+                # Ignore if the publication doesn't have a doi
+                if 'doi' in pub:
+                    record[pub['doi']] = pub
 
         return record
     

@@ -82,6 +82,24 @@ class TestNIH_NCBI(unittest.TestCase, NIH_NCBI):
         for k in pubData:
             self.assertEquals(pubData[k]['title'], 'Computational analysis of mechanical stress in colonic diverticulosis')
         return
+    
+    #----------------------------------------------------
+    # test_getCitedBy:
+    # Check whether we can retrieve citations of a given paper
+    #----------------------------------------------------
+    def test_getCitedBy (self):
+        # Check whether we can retrieve citations of a pm_id
+        records = self.getCitedBy('pm_id', '32265489')
+        self.assertEquals(len(records), 1)
+        for k in records:
+            self.assertEquals(records[k]['title'], 'Mechanotransduction in gastrointestinal smooth muscle cells: role of mechanosensitive ion channels')
+
+        # Check whether we can retrieve citations of a pmc_id
+        records = self.getCitedBy('pmc_id', '7138845')
+        self.assertEquals(len(records), 1)
+        for k in records:
+            self.assertEquals(records[k]['title'], 'Mechanotransduction in gastrointestinal smooth muscle cells: role of mechanosensitive ion channels')
+        return
 
 
 if __name__ == '__main__':
