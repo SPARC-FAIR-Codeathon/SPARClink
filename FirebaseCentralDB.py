@@ -11,7 +11,7 @@ import time
 import pyrebase
 
 from ExternalAPIs.NIH_NCBI import NIH_NCBI
-from backend.pennsieve_metadata import get_list_of_datasets_with_metadata
+from backend.metadata_extraction import get_list_of_datasets_with_metadata
 
 firebaseConfig = {
     'apiKey': "AIzaSyBZGI1EbzcsoPnplzgBGWYZBF0CHwR4BnY",
