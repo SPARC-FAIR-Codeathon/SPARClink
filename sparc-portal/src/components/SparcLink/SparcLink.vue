@@ -1,31 +1,38 @@
 <template>
-  SPARClink
-  <div id="svg_container" class="border-1 border-gray-100"></div>
-  container2
-  <div id="svg_container2" class="border-1 border-gray-100"></div>
+  <div
+    id="svg_container"
+    class="border border-gray-500 flex flex-row justify-center relative"
+    style="min-height: 200px"
+  >
+    <div id="svg-container" ref="svgContainer"></div>
+    <div class="bg-gray-50 absolute bottom-5 right-5 p-3 w-1/12">
+      control {{ testgroup }}
+    </div>
+  </div>
 </template>
 
 <script>
 const d3 = require("d3");
 const axios = require("axios");
-
 import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "SparcLink",
+  components: {},
+  data() {
+    return { radius: 5, organized_data: {}, testgroup: "" };
+  },
   methods: {
-    test2: function (data) {
-      const height = 680;
-      const width = 1800;
+    test2: function () {
+      const data = this.organized_data;
+      const height = 800;
+      const width = 1300;
 
       const links = data.links.map((d) => Object.create(d));
       const nodes = data.nodes.map((d) => Object.create(d));
 
-      // const svg = d3.create("svg")
-      //     .attr("viewBox", [-width / 2, -height / 2, width, height]);
-      const radius = 5;
       var svg = d3
-        .select("#svg_container2")
+        .select("#svg-container")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -49,11 +56,19 @@ export default {
         .data(links)
         .join("line");
 
+      // function test(idx) {
+      //   this.testgroup = idx.author_list;
+      // }
+
+      let that = this;
       function dragstarted(d) {
-        console.log("test", d3);
         if (!d3.event.active) simulation.alphaTarget(1).restart();
         d.fx = d.x;
         d.fy = d.y;
+        let x = data.nodes[d.index];
+        console.log(x);
+        console.log(x.author_list);
+        that.testgroup = x.author_list;
       }
 
       function dragged(d) {
@@ -67,11 +82,6 @@ export default {
         d.fy = null;
       }
 
-      // function color() {
-      //   const scale = d3.scaleOrdinal(d3.schemeCategory10);
-      //   return (d) => scale(d.group);
-      // }
-
       const node = svg
         .append("g")
         .attr("stroke", "#C0C0C0")
@@ -82,7 +92,7 @@ export default {
         .attr("fill", (d) => {
           return d.color;
         })
-        .attr("r", radius)
+        .attr("r", this.radius)
         .call(
           d3
             .drag()
@@ -124,7 +134,6 @@ export default {
         obj.group = "sparc dataset";
         obj.color = "#FF0063";
         data.nodes.push(obj);
-        console.log(obj.originatingArticle)
         datasetmap.push(item);
       }
 
@@ -186,17 +195,14 @@ export default {
         "https://sparclink-f151d-default-rtdb.firebaseio.com/.json"
       );
       database_response = database_response.data;
-      //   console.log(database_response);
 
-      const organized_data = await this.organizeData(database_response);
+      this.organized_data = await this.organizeData(database_response);
 
-      this.test2(organized_data);
+      this.test2();
     },
   },
   mounted() {
     this.createViz();
-
-    // test();
   },
 };
 </script>
