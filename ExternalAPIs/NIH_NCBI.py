@@ -66,15 +66,15 @@ class NIH_NCBI:
     # Retrieve information about a publication using pm_id from NCBI eutils
     #----------------------------------------------------
     def _getPublicationFromPubmed (self, pm_id):
-        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 3)
+        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
         resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + str(pm_id))
 
         record = {}
         if (resp.status_code == 200):
             jsonData = json.loads(resp.content)
-            record = self._generateNCBIpublicationRecord(jsonData['result'][str(pm_id)])
-            if 'doi' not in record:
-                record['doi'] = 'pmid_' + pm_id # We use the doi as the key. This will help debug publications without doi
+
+            if (len(jsonData['result']['uids']) > 0):
+                record = self._generateNCBIpublicationRecord(jsonData['result'][str(pm_id)])
 
         return record
 
@@ -83,17 +83,60 @@ class NIH_NCBI:
     # Retrieve information about a publication from PMC using the pmc_id from NCBI eutils
     #----------------------------------------------------
     def _getPublicationFromPMC (self, pmc_id):
-        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 3)
+        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
         resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&retmode=json&id=' + str(pmc_id))
         
         record = {}
         if (resp.status_code == 200):
             jsonData = json.loads(resp.content)
-            record = self._generateNCBIpublicationRecord(jsonData['result'][str(pmc_id)])
-            if 'doi' not in record:
-                record['doi'] = 'pmcid_' + pmc_id #We use the doi as the key. This will help debug publicastions without doi
+
+            if (len(jsonData['result']['uids']) > 0):
+                record = self._generateNCBIpublicationRecord(jsonData['result'][str(pmc_id)])
         
         return record
+    
+    #----------------------------------------------------
+    # getCitedBy:
+    # Get the articles that cite a given publication specified by pmc_id or
+    # pm_id. 'idtype' specifies 'pm_id' or 'pmc_id'. 'id' gives the respective
+    # id.
+    #----------------------------------------------------
+    def getCitedBy (self, id_type, id):
+        url = ''
+        if (id_type == 'pm_id'):
+            url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pubmed_pubmed_citedin&retmode=json&id=' + str(id)
+        elif (id_type == 'pmc_id'):
+            url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&linkname=pmc_pmc_citedby&retmode=json&id=' + str(id)
+
+        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
+        resp = requests.get(url)
+
+        if (resp.status_code != 200):
+            return {}
+        
+        jsonData = json.loads(resp.content)
+        cited_by = jsonData['linksets']['linksetdbs'][0]
+
+        record = {}
+        for cited_id in cited_by['links']:
+            pub = {}
+            if (cited_by['dbto'] == 'pubmed'):
+                pub = self._getPublicationFromPubmed(cited_id)
+            elif (cited_by['dbto'] == 'pmc'):
+                pub = self._getPublicationFromPMC(cited_id)
+
+            # Ignore if the publication doesn't have a doi
+            if 'doi' in pub:
+                record[pub['doi']] = pub
+
+        return record
+    
+    #----------------------------------------------------
+    # getPaperWithDOI
+    # Retrieve the paper data from pubmed and pmc given the DOI
+    #----------------------------------------------------
+    def getPaperWithDOI (self, doi):
+        return
     
     #----------------------------------------------------
     # getProjectFundingDetails:
@@ -157,10 +200,12 @@ class NIH_NCBI:
                 data['year']        = pub['pub_year']
                 data['author_list'] = pub['author_list']
                 data['url']         = pub['journal_title_link']['value']
-                data['doi']         = pubmed_data['doi']
+                data['pm_id']       = pub['pm_id']
 
-                record[pubmed_data['doi']] = data
-                
+                # Ignore if the paper doesn't have a doi
+                if ('doi' in pubmed_data):
+                    data['doi']                = pubmed_data['doi']
+                    record[pubmed_data['doi']] = data
         
         return record
 
@@ -171,7 +216,7 @@ class NIH_NCBI:
     # uses the dataset.
     #----------------------------------------------------
     def getPublicationsOfDataset (self, doi):
-        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 3)
+        self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
         term = urlparser.quote('"' + str(doi) + '"', safe='')
         resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&retmode=json&term=' + term)
 
@@ -182,7 +227,10 @@ class NIH_NCBI:
 
             for pmc_id in pmc_ids:
                pub = self._getPublicationFromPMC(pmc_id)
-               record[pub['doi']] = pub
+               
+               # Ignore if the publication doesn't have a doi
+               if 'doi' in pub:
+                   record[pub['doi']] = pub
 
         return record
     

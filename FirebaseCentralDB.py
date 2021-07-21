@@ -47,13 +47,15 @@ def main():
 
     i = 0
     for dataset in sparc_dataset_list:
-        print('Processing dataset: ' + str(i))
+        print('Processing dataset: ' + str(i) + ' : ' + dataset['datasetDOI'])
         i += 1
 
         # update the user token if its been more than 30 min
         dt = time.time() - Timestamp
         if (dt > 1800):
-            user = auth.refresh(user['refreshToken'])
+            refreshed_user       = auth.refresh(user['refreshToken'])
+            user['idToken']      = refreshed_user['idToken']
+            user['refreshToken'] = refreshed_user['refreshToken']
             Timestamp = time.time()
 
         # Insert the dataset to the database
@@ -84,7 +86,7 @@ def main():
             uploadPaperOrUpdate(paper_key, 'datasets', dataset_pub_records[k])
 
         # Find the funding awards (NIH) associated with the datasets. Add to award db
-        print('- Processing awards')
+        print('- Processing awards: ' + str(dataset_record['award']))
         award_record = NN.generateRecord(NN.getProjectFundingDetails([ dataset_record['award'] ]))
         db.child(user['localId']).child('Awards').update({dataset_record['award']: award_record}, user['idToken'])
 
@@ -92,7 +94,7 @@ def main():
         j = 0
         award_pub = {}
         for k in award_record:
-            print('--- Processing paper: ' + str(j))
+            print('- Processing award: ' + str(j))
             j += 1
 
             sub_award = award_record[k]
@@ -101,7 +103,7 @@ def main():
 
         j = 0
         for k in award_pub:
-            print('--- Processing paper: ' + str(j))
+            print('--- Processing award paper: ' + str(j))
             j += 1
 
             paper_key = k.translate(disallowed_chars)
