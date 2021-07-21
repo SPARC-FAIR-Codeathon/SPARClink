@@ -12,4 +12,6 @@ dependencies:
     - pandas
     - tqdm
     - python-dotenv
+    - serpapi
+    - google-search-results
 prefix: ./env
