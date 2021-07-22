@@ -88,6 +88,13 @@ conda env create -f environment.yml --prefix ./envs
 conda activate ./env
 ```
 
+### Testing
+Unit tests to verify external APIs are written in Python unittest framework. The tests can be run as shown below:
+``` bash
+python -m unittest -v tests/test_NIH_NCBI.py
+```
+
+### Firebase Backend Implementation
 Currently, the central database is implemented as a [Firebase](https://firebase.google.com/) real-time database. The database can be updated by running `FirebaseImplementation.py`. However, this requires a username and a password.
 
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
