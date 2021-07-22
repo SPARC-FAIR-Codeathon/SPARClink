@@ -1,5 +1,29 @@
 <template>
   <div class="flex justify-end bg-indigo-900 py-1">
+    <a href="https://sparc.science" target="_blank" class="p-2 flex flex-row">
+      <svg
+        version="1.1"
+        viewBox="0 0 24 24"
+        class="svg-icon svg-fill"
+        style="width: 18px; height: 18px"
+        data-v-38f78515=""
+      >
+        <path
+          fill="#fff"
+          pid="0"
+          d="M12 5a7 7 0 11-7 7 7.008 7.008 0 017-7m0-2a9 9 0 109 9 9 9 0 00-9-9z"
+        ></path>
+        <path
+          fill="#fff"
+          pid="1"
+          d="M12 7.148a.9.9 0 10.9.9.9.9 0 00-.9-.9zM12 17.148a1 1 0 01-1-1v-5.4a1 1 0 112 0v5.4a1 1 0 01-1 1z"
+        ></path>
+      </svg>
+      <span class="text-white text-xs px-1">
+        This is a developer demo of the SPARC Portal. Click here to go to
+        official SPARC Portal
+      </span>
+    </a>
     <a href="#" class="p-2 flex flex-row">
       <svg
         version="1.1"
@@ -143,7 +167,7 @@ export default {
         { name: "Find Data", href: "/" },
         { name: "Tools & Resources", href: "/" },
         { name: "Maps", href: "/" },
-        { name: "News & Events", href: "/" },
+        { name: "SPARClink SVG", href: "/SparclinkSvg" },
         { name: "SPARClink", href: "/sparclink" },
       ],
     };
