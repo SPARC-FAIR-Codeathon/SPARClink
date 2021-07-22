@@ -28,8 +28,8 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth     = firebase.auth()
 
-email    = 'bb@bb.com'#input('Enter email: ')
-passw    = '123456'#input('Enter password: ')
+email    = input('Enter email: ')
+passw    = input('Enter password: ')
 user     = auth.sign_in_with_email_and_password(email, passw)
 
 db = firebase.database()
@@ -361,7 +361,7 @@ def main():
     elif (x == '2'):
         uploadProtocols()
     elif (x == '3'):
-        uploadCitations(skip=21)
+        uploadCitations()
     else:
         award_list = uploadDatasets()
         uploadAwards(award_list)
