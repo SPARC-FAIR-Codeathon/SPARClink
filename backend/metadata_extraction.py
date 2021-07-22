@@ -153,7 +153,7 @@ def get_list_of_datasets_with_metadata(list_of_datasets):
 
     return list_of_datasets
 
-def parsing_protocols(dataset_list):
+def parsing_protocols():
     url = "https://www.protocols.io/api/v3/groups/sparc/protocols"
     querystring = {
         "Authorization": "6f2a7221421ac802790b1469f435d6fabefc989a4103b6a0d470613f3bc6594e"}
@@ -204,26 +204,27 @@ def parsing_protocols(dataset_list):
             except:
                 pass
 
-    delete_protocols = []
-    for protocol in list_of_protocols:
-        for dataset in dataset_list:
-            for item in dataset['protocolsDOI']:
-                if (item.find(protocol['doi']) != -1):
-                    delete_protocols.append(protocol['id'])\
+#    delete_protocols = []
+#    for protocol in list_of_protocols:
+#        for dataset in dataset_list:
+#            for item in dataset['protocolsDOI']:
+#                if (item.find(protocol['doi']) != -1):
+#                    delete_protocols.append(protocol['id'])\
 
-    prot_list = []
-    for item in list_of_protocols:
-        if (item['id'] in delete_protocols):
-            prot_list.append(item)
+#    prot_list = []
+#    for item in list_of_protocols:
+#        if (item['id'] in delete_protocols):
+#            prot_list.append(item)
 
-    # Final output with protocols filtered out
-    # protocol_list
+#    # Final output with protocols filtered out
+#    # protocol_list
 
-    return prot_list
+#    return prot_list
+    return list_of_protocols
 
 
-dataset_list = []
-dataset_list = get_list_of_datasets_with_metadata(dataset_list)
-# print(dataset_list)
-
-protocols_list = parsing_protocols( dataset_list)
+# dataset_list = []
+# dataset_list = get_list_of_datasets_with_metadata(dataset_list)
+# # print(dataset_list)
+# 
+# protocols_list = parsing_protocols( dataset_list)

@@ -74,7 +74,7 @@ def main():
 
         # Find papers associated with the dataset. Upload.
         j = 0
-        dataset_pub_records = NN.getPublicationsOfDataset(dataset_record['doi'].split('.org/')[1])
+        dataset_pub_records = NN.getPublicationWithSearchTerm('"{0}"'.format(dataset_record['doi'].split('.org/')[1]))
         for k in dataset_pub_records:
             print('--- Processing paper: ' + str(j))
             j += 1

@@ -48,7 +48,7 @@ class NIH_NCBI:
         data = {}
 
         data['title']  = jsonPub['title']
-        data['jounal'] = jsonPub['source']
+        data['journal'] = jsonPub['source']
         data['year']   = jsonPub['pubdate'].split(' ')[0]
 
         author_list = ''
@@ -135,13 +135,6 @@ class NIH_NCBI:
         return record
     
     #----------------------------------------------------
-    # getPaperWithDOI
-    # Retrieve the paper data from pubmed and pmc given the DOI
-    #----------------------------------------------------
-    def getPaperWithDOI (self, doi):
-        return
-    
-    #----------------------------------------------------
     # getProjectFundingDetails:
     # This function retrieves data from NIH reporter for a given project identified by
     # the 'project_no'.
@@ -218,9 +211,9 @@ class NIH_NCBI:
     # the doi. This function assumes that all the papers that mention the given doi
     # uses the dataset.
     #----------------------------------------------------
-    def getPublicationsOfDataset (self, doi):
+    def getPublicationWithSearchTerm (self, search_term):
         self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
-        term = urlparser.quote('"' + str(doi) + '"', safe='')
+        term = urlparser.quote(str(search_term), safe='')
         resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&retmode=json&term=' + term)
 
         record = {}

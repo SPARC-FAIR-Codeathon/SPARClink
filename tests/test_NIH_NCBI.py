@@ -76,7 +76,7 @@ class TestNIH_NCBI(unittest.TestCase, NIH_NCBI):
     # dataset doi matches the result we found from a web search.
     #----------------------------------------------------
     def test_PublicationsOfDatasets (self):
-        pubData = self.getPublicationsOfDataset('10.26275/DUZ8-MQ3N')
+        pubData = self.getPublicationWithSearchTerm('"10.26275/DUZ8-MQ3N"')
         self.assertEquals(len(pubData), 1)
         
         for k in pubData:
