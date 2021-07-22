@@ -35,6 +35,14 @@
       </div>
     </div>
 
+    <div class="bg-transparent absolute top-5 left-5 p-3 w-80 flex flex-col">
+      <h2 class="font-sans text-lg text-gray-700 mb-0">Legend</h2>
+      <div class="flex flex-row items-center">
+        <div class="rounded-full w-3 h-3 bg-pink-600"></div>
+        <span class="px-2 text-sm font-sans text-gray-700"> Filter </span>
+      </div>
+    </div>
+
     <div class="bg-transparent absolute top-5 right-3 p-3 w-3/12 flex flex-col">
       <h2 class="font-sans text-lg text-gray-700">{{ resource_type }} Title</h2>
       <span class="font-sans text-base text-gray-500 leading-none mb-2">
