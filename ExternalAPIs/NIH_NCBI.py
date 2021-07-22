@@ -119,7 +119,12 @@ class NIH_NCBI:
                 return {}
         
             jsonData = json.loads(resp.content)
-            cited_by = jsonData['linksets'][0]['linksetdbs'][0]
+            linksets = jsonData['linksets'][0]
+
+            if ('linksetdbs' not in linksets):
+                continue
+
+            cited_by = linksets['linksetdbs'][0]
 
             for cited_id in cited_by['links']:
                 pub = {}

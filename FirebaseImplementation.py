@@ -269,7 +269,7 @@ def uploadProtocols ():
 # uploadCitations:
 # Find the citations for each direct paper in firebase, and uplaod them.
 #--------------------------------------------------------------
-def uploadCitations ():
+def uploadCitations (skip=0):
     global user
     global Timestamp
 
@@ -280,6 +280,9 @@ def uploadCitations ():
     curr_paper = 0
     for paper_key in papers:
         curr_paper += 1
+
+        if (curr_paper < skip):
+            continue
         
         # update the user token if its been more than 30 min
         dt = time.time() - Timestamp
@@ -292,17 +295,18 @@ def uploadCitations ():
         paper = papers[paper_key]
         
         # Ignore if the paper is not directly connected to SPARC
-        if (paper['direct'] != True):
+        if ('direct' not in paper or paper['direct'] != True):
             continue
 
         print("--- Processing paper ({0}/{1})".format(curr_paper, len(papers)))
 
+        citedby = {}
         if ('pm_id' in paper):
             citedby = NN.getCitedBy('pm_id', paper['pm_id'])
         elif ('pmc_id' in paper):
             citedby = NN.getCitedBy('pm_id', paper['pmc_id'])
         
-        db.child(user['localId']).child('Papers').child(paper_key).update({'citations': len(citedby)})
+        db.child(user['localId']).child('Papers').child(paper_key).update({'citations': len(citedby)}, user['idToken'])
 
         i = 0
         for kk in citedby:
@@ -310,6 +314,7 @@ def uploadCitations ():
             print("---- Uploading citation {0}/{1}".format(i, len(citedby)))
 
             citedby[kk]['papers']   = [paper_key]
+            citedby[kk]['direct']   = False
             uploadPaperOrUpdate(kk.translate(disallowed_chars), 'papers', citedby[kk])
 
     return
@@ -356,7 +361,7 @@ def main():
     elif (x == '2'):
         uploadProtocols()
     elif (x == '3'):
-        uploadCitations()
+        uploadCitations(skip=21)
     else:
         award_list = uploadDatasets()
         uploadAwards(award_list)
