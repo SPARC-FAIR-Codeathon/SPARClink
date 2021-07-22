@@ -12,8 +12,9 @@ from pyasn1_modules.rfc2459 import Time
 import pyrebase
 
 from ExternalAPIs.NIH_NCBI import NIH_NCBI
-import backend.metadata_extraction as SPARC
+import SPARC.metadata_extraction as SPARC
 
+#******************* Update with firebase API key*******************#
 firebaseConfig = {
     'apiKey': "AIzaSyBZGI1EbzcsoPnplzgBGWYZBF0CHwR4BnY",
     'authDomain': "sparclink-f151d.firebaseapp.com",
@@ -24,6 +25,7 @@ firebaseConfig = {
     'appId': "1:168500342210:web:8675fcd3db2f527916ba5b",
     'measurementId': "G-N1K2EXBDZG"
 }
+#*******************************************************************#
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth     = firebase.auth()
