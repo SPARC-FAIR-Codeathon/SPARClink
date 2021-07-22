@@ -50,7 +50,8 @@ The goal of SPARClink is to provide a system that will query all external public
 Metadata information is extracted from [Pennsieve](https://app.pennsieve.io/), and the SPARC Airtable database. This information is queried against the [NIH Reporter](https://api.reporter.nih.gov/) and [Google Scholar](https://serpapi.com/google-scholar-api) to extract citations and create a well connected graph using [d3.js](https://d3js.org/). 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/21206996/125478715-d5f83b6f-8a6d-4ef8-a845-952baa27d8da.png" />
+  <!--<img src="https://user-images.githubusercontent.com/21206996/125478715-d5f83b6f-8a6d-4ef8-a845-952baa27d8da.png" />-->
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/sparclink_block_diagram-01.png" width="500"/>
   <br/>
   <span> SPARClink workflow </span>
 </p>
