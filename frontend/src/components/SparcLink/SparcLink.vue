@@ -214,8 +214,11 @@ export default {
   watch: {
     filterInput: function (val) {
       this.filterLonely = false;
-      val = val.trim();
+      this.filterNodes = []
       this.simulation.stop();
+
+      val = val.trim();
+      
       if (val == "") {
         this.drawCanvas();
       } else {
@@ -327,6 +330,7 @@ export default {
     },
     filterLonely: function (val) {
       this.filterInput = "";
+      this.filterNodes = []
       this.simulation.stop();
       if (!val) {
         this.drawCanvas();
