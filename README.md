@@ -93,6 +93,12 @@ cd SPARClink
 conda env create -f environment.yml --prefix ./envs 
 conda activate ./env
 ```
+The application uses [python-dotenv](https://github.com/theskumar/python-dotenv) to load configuration information from a `.env` file. Create a `.env` file with the following information.
+``` bash
+PROTOCOLS_IO_KEY="<protocols.io api key>"
+SERPAPI_KEY="<serpapi api key>"
+```
+A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). Serp api key is not required at the moment. To integrate google scholar results, an API key can be obtained as [shown here](https://serpapi.com/).
 
 ### Testing
 Unit tests to verify external APIs are written in Python unittest framework. The tests can be run as shown below:
@@ -105,18 +111,9 @@ Currently, the central database is implemented as a [Firebase](https://firebase.
 
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
 
-``` bash
-## Run the backend python server
-cd backend
-python api.py
+### Visualization Web App
 
-## Run the front end
-cd frontend
-npm install
-```
-
-
-Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)
+<!--Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)-->
 
 ## Maintainers
 * [Sanjay Soundarajan](https://github.com/megasanjay)
