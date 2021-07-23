@@ -52,6 +52,7 @@
 - [Run the project](#run-the-project)
   - [Testing](#testing)
   - [Firebase Backend Implementation](#firebase-backend-implementation)
+  - [Visualization Web App](#visualization-web-app)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
