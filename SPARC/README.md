@@ -2,7 +2,9 @@
 
 This module contains API implementations to communicate with SPARC Pennsieve and https://www.protocols.io/workspaces/sparc.
 
-## get_list_of_datasets_with_metadata([])
+## SPARC Pennsieve
+
+### get_list_of_datasets_with_metadata([])
 
 Return all the dataset from SPARC Pennsieve. Return object:
 ``` python
@@ -34,7 +36,9 @@ Return all the dataset from SPARC Pennsieve. Return object:
     'protocolsDOI': ['dx.doi.org/10.17504/protocols.io.6bvhan6']}, ...]
 ```
 
-## parsing_protocols(authorization_key)
+## Protocols.io API
+
+### parsing_protocols(authorization_key)
 - `authorization_key` : API key obtained from protocols.io
 
 Returns all the protocols in the SPARC workspace. Return object:
