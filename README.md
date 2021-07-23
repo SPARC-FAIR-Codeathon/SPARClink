@@ -90,7 +90,7 @@ The development environment uses [Anaconda](https://www.anaconda.com/products/in
 The following would create a new `conda` environment with the dependencies required to run the project.
 ``` bash
 cd SPARClink
-conda env create -f environment.yml --prefix ./envs 
+conda env create -f environment.yml --prefix ./env 
 conda activate ./env
 ```
 The application uses [python-dotenv](https://github.com/theskumar/python-dotenv) to load configuration information from a `.env` file. Create a `.env` file with the following information.
