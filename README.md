@@ -123,7 +123,7 @@ To use your own Firebase instance, setup a Firebase web app as [shown here](http
 * [Sachira Kuruppu](https://github.com/rsachira-abi)
 
 ## Contributing
-See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md). Add a [GitHub Star](/) to support active development!
+See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md). Add a [GitHub Star](https://github.com/SPARC-FAIR-Codeathon/SPARClink) to support active development!
 
 ## License
 See [LICENSE](./LICENSE)
