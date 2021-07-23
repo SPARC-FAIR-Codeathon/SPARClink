@@ -38,6 +38,10 @@
   <br/> 
 </p>
 
+<h4 align="center">
+  <a href="https://sparclink-f151d.web.app/sparclink" target="_blank">SPARClink Web App</a>
+</h4>
+
 ## Table of content
 - [What is SPARClink?](#what-is-sparclink)
   - [NIH SPARC](#nih-sparc)
@@ -46,6 +50,8 @@
   - [Goal](#goal)
 - [How it works](#how-it-works)
 - [Run the project](#run-the-project)
+  - [Testing](#testing)
+  - [Firebase Backend Implementation](#firebase-backend-implementation)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
