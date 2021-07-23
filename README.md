@@ -98,7 +98,7 @@ The application uses [python-dotenv](https://github.com/theskumar/python-dotenv)
 PROTOCOLS_IO_KEY="<protocols.io api key>"
 SERPAPI_KEY="<serpapi api key>"
 ```
-A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). Serp api key is not required at the moment. To integrate google scholar results, and API key can be obtained as [shown here](https://serpapi.com/).
+A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). Serp api key is not required at the moment. To integrate google scholar results, an API key can be obtained as [shown here](https://serpapi.com/).
 
 ### Testing
 Unit tests to verify external APIs are written in Python unittest framework. The tests can be run as shown below:
