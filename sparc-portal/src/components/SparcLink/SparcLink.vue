@@ -30,19 +30,92 @@
       <div class="flex flex-row items-center">
         <div class="rounded-full w-3 h-3 bg-blue-500"></div>
         <span class="px-2 text-sm font-sans text-gray-700">
-          Citating Publication
+          Citing Publication
         </span>
       </div>
     </div>
 
-    <div class="bg-transparent absolute top-5 left-5 p-3 w-80 flex flex-col">
-      <h2 class="font-sans text-lg text-gray-700 mb-0">Legend</h2>
-      <div class="flex flex-row items-center">
-        <div class="rounded-full w-3 h-3 bg-pink-600"></div>
-        <span class="px-2 text-sm font-sans text-gray-700"> Filter </span>
+    <div
+      class="
+        bg-transparent
+        absolute
+        bottom-5
+        left-5
+        p-3
+        w-80
+        flex flex-col
+        divide-y-2
+      "
+    >
+      <div class="py-3">
+        <h2 class="font-sans text-lg text-gray-700 mb-0">Filter the graph</h2>
+        <div class="flex flex-row items-center">
+          <input
+            placeholder=" Filter keywords"
+            ref="filterInput"
+            v-model="filterInput"
+            class="border border-gray-700 p-1"
+          />
+        </div>
+      </div>
+      <div class="py-3">
+        <div class="flex flex-row items-center">
+          <label class="font-sans text-lg text-gray-700 mr-4">
+            Remove unconnected nodes
+          </label>
+          <input type="checkbox" id="checkbox" v-model="filterLonely" />
+        </div>
+      </div>
+      <div class="py-3">
+        <h2 class="font-sans text-lg text-gray-700 mb-0">Filter nodes</h2>
+        <div class="flex flex-row items-center pr-3">
+          <input
+            type="checkbox"
+            id="filterNodes"
+            value="sparc dataset"
+            v-model="filterNodes"
+          />
+          <label class="font-sans text-base text-gray-700 ml-2">
+            SPARC Datasets
+          </label>
+        </div>
+        <div class="flex flex-row items-center pr-3">
+          <input
+            type="checkbox"
+            id="filterNodes"
+            value="sparc publication"
+            v-model="filterNodes"
+          />
+          <label class="font-sans text-base text-gray-700 ml-2">
+            SPARC Publications
+          </label>
+        </div>
+        <div class="flex flex-row items-center pr-3">
+          <input
+            type="checkbox"
+            id="filterNodes"
+            value="sparc protocol"
+            v-model="filterNodes"
+          />
+          <label class="font-sans text-base text-gray-700 ml-2">
+            SPARC Protocols
+          </label>
+        </div>
+        <div class="flex flex-row items-center pr-3">
+          <input
+            type="checkbox"
+            id="filterNodes"
+            value="non sparc publication"
+            v-model="filterNodes"
+          />
+          <label class="font-sans text-base text-gray-700 ml-2">
+            Citing Publications
+          </label>
+        </div>
       </div>
     </div>
 
+    <!-- node details window -->
     <div class="bg-transparent absolute top-5 right-3 p-3 w-3/12 flex flex-col">
       <h2 class="font-sans text-lg text-gray-700">{{ resource_type }} Title</h2>
       <span class="font-sans text-base text-gray-500 leading-none mb-2">
@@ -108,7 +181,9 @@
 <script>
 const d3 = require("d3");
 const axios = require("axios");
+// import Tagify from "@yaireo/tagify";
 import { v4 as uuidv4 } from "uuid";
+// import "@yaireo/tagify/dist/tagify.css";
 
 export default {
   name: "SparcLink",
@@ -117,16 +192,267 @@ export default {
     return {
       radius: 4,
       organized_data: {},
+      filtered_data: {},
       title: "",
       doi: "",
       award: "",
       datasetDescription: "",
-      citationsRange: [],
       datasetTags: [],
       cite_max: 0,
       cite_min: 0,
+      filterInput: "",
+      strength: -12,
       resource_type: "",
+      citationsRange: [],
+      simulation: "",
+      filterLonely: false,
+      filterNodes: [],
     };
+  },
+  watch: {
+    filterInput: function (val) {
+      this.filterLonely = false;
+      val = val.trim();
+      this.simulation.stop();
+      if (val == "") {
+        this.drawCanvas();
+      } else {
+        const filter_words = val.split(" ");
+        let data = this.organized_data;
+
+        let removeList = [];
+
+        data.nodes.forEach((item) => {
+          let removeFlag = true;
+          if ("tags" in item) {
+            item.tags.forEach((tag) => {
+              filter_words.forEach((word) => {
+                if (tag.search(word) != -1) {
+                  removeFlag = false;
+                }
+              });
+            });
+          }
+          if ("title" in item) {
+            filter_words.forEach((word) => {
+              if (item.title.search(word) != -1) {
+                removeFlag = false;
+              }
+            });
+          }
+          if ("description" in item) {
+            filter_words.forEach((word) => {
+              if (item.description.search(word) != -1) {
+                removeFlag = false;
+              }
+            });
+          }
+          if ("author_list" in item) {
+            filter_words.forEach((word) => {
+              if (item["author_list"].search(word) != -1) {
+                removeFlag = false;
+              }
+            });
+          }
+          if ("url" in item) {
+            filter_words.forEach((word) => {
+              if (item.url.search(word) != -1) {
+                removeFlag = false;
+              }
+            });
+          }
+          if ("journal" in item) {
+            filter_words.forEach((word) => {
+              if (item.journal.search(word) != -1) {
+                removeFlag = false;
+              }
+            });
+          }
+          if (removeFlag == true) {
+            if (!removeList.includes(item.id)) {
+              removeList.push(item.id);
+            }
+          }
+        });
+
+        this.filtered_data = { nodes: [], links: [] };
+        data.nodes.forEach((item) => {
+          if (!removeList.includes(item.id)) {
+            item.computedCitations = 0;
+            this.filtered_data.nodes.push(item);
+          }
+        });
+        data.links.forEach((item) => {
+          if (
+            !(
+              removeList.includes(item.source) ||
+              removeList.includes(item.target)
+            )
+          ) {
+            this.filtered_data.links.push(item);
+          }
+        });
+
+        // get citations count
+        this.filtered_data.links.forEach((link) => {
+          let source = link.source;
+          this.filtered_data.nodes.forEach((node) => {
+            if (node.id == source) {
+              node.computedCitations = node.computedCitations + 1;
+            }
+          });
+        });
+
+        let citationsRange = [];
+        this.filtered_data.nodes.forEach((node) => {
+          citationsRange.push(node.computedCitations);
+        });
+
+        this.cite_max = Math.max.apply(Math, citationsRange);
+        this.cite_min = Math.min.apply(Math, citationsRange);
+
+        if (
+          this.filtered_data.nodes.length <
+          this.organized_data.nodes.length * 0.6
+        ) {
+          this.strength = -30;
+        } else {
+          this.strength = -12;
+        }
+
+        this.drawCanvas(true);
+      }
+    },
+    filterLonely: function (val) {
+      this.filterInput = "";
+      this.simulation.stop();
+      if (!val) {
+        this.drawCanvas();
+      } else {
+        let data = this.organized_data;
+
+        let keepList = [];
+
+        data.links.forEach((item) => {
+          if (!keepList.includes(item.source)) {
+            keepList.push(item.source);
+          }
+          if (!keepList.includes(item.target)) {
+            keepList.push(item.target);
+          }
+        });
+
+        this.filtered_data = { nodes: [], links: [] };
+        data.nodes.forEach((item) => {
+          if (keepList.includes(item.id)) {
+            item.computedCitations = 0;
+            this.filtered_data.nodes.push(item);
+          }
+        });
+        data.links.forEach((item) => {
+          this.filtered_data.links.push(item);
+        });
+
+        if (
+          this.filtered_data.nodes.length <
+          this.organized_data.nodes.length * 0.6
+        ) {
+          this.strength = -30;
+        } else {
+          this.strength = -12;
+        }
+
+        // get citations count
+        this.filtered_data.links.forEach((link) => {
+          let source = link.source;
+          this.filtered_data.nodes.forEach((node) => {
+            if (node.id == source) {
+              node.computedCitations = node.computedCitations + 1;
+            }
+          });
+        });
+
+        let citationsRange = [];
+        this.filtered_data.nodes.forEach((node) => {
+          citationsRange.push(node.computedCitations);
+        });
+
+        this.cite_max = Math.max.apply(Math, citationsRange);
+        this.cite_min = Math.min.apply(Math, citationsRange);
+
+        this.drawCanvas(true);
+      }
+    },
+    filterNodes: function (val) {
+      this.filterInput = "";
+      this.filterLonely = false;
+      this.simulation.stop();
+
+      if (val.length == 0) {
+        this.drawCanvas();
+      } else {
+        let data = this.organized_data;
+
+        let keepList = [];
+
+        data.nodes.forEach((node) => {
+          let keepFlag = false;
+          if (val.includes(node.group)) {
+            keepFlag = true;
+          }
+          if (keepFlag == true) {
+            if (!keepList.includes(node.id)) {
+              keepList.push(node.id);
+            }
+          }
+        });
+
+        this.filtered_data = { nodes: [], links: [] };
+        data.nodes.forEach((item) => {
+          if (keepList.includes(item.id)) {
+            item.computedCitations = 0;
+            this.filtered_data.nodes.push(item);
+          }
+        });
+        data.links.forEach((item) => {
+          if (
+            keepList.includes(item.source) &&
+            keepList.includes(item.target)
+          ) {
+            this.filtered_data.links.push(item);
+          }
+        });
+
+        // get citations count
+        this.filtered_data.links.forEach((link) => {
+          let source = link.source;
+          this.filtered_data.nodes.forEach((node) => {
+            if (node.id == source) {
+              node.computedCitations = node.computedCitations + 1;
+            }
+          });
+        });
+
+        let citationsRange = [];
+        this.filtered_data.nodes.forEach((node) => {
+          citationsRange.push(node.computedCitations);
+        });
+
+        this.cite_max = Math.max.apply(Math, citationsRange);
+        this.cite_min = Math.min.apply(Math, citationsRange);
+
+        if (
+          this.filtered_data.nodes.length <
+          this.organized_data.nodes.length * 0.6
+        ) {
+          this.strength = -30;
+        } else {
+          this.strength = -12;
+        }
+
+        this.drawCanvas(true);
+      }
+    },
   },
   methods: {
     getDoiURL: function (doi) {
@@ -143,10 +469,19 @@ export default {
         return `https://dx.doi.org/${doi}`;
       } else return "#";
     },
-    drawCanvas: function () {
+    drawCanvas: function (filtered = false) {
+      let data;
+      if (!filtered) {
+        this.cite_max = Math.max.apply(Math, this.citationsRange);
+        this.cite_min = Math.min.apply(Math, this.citationsRange);
+        data = JSON.parse(JSON.stringify(this.organized_data));
+        this.strength = -12;
+      } else {
+        data = JSON.parse(JSON.stringify(this.filtered_data));
+      }
+
       const MAX = this.cite_max;
       const MIN = this.cite_min;
-      const data = this.organized_data;
       const HEIGHT = 800;
       const WIDTH = 1300;
 
@@ -155,8 +490,8 @@ export default {
 
       const links = data.links.map((d) => Object.create(d));
       const nodes = data.nodes.map((d) => Object.create(d));
-
-      const simulation = d3
+     
+      this.simulation = d3
         .forceSimulation(nodes)
         .force(
           "link",
@@ -164,12 +499,12 @@ export default {
         )
         .force("x", d3.forceX())
         .force("y", d3.forceY())
-        .force("charge", d3.forceManyBody().strength(-12))
+        .force("charge", d3.forceManyBody().strength(this.strength))
         .force("center", d3.forceCenter(WIDTH / 2, HEIGHT / 2));
 
-      simulation.nodes(nodes).on("tick", ticked);
+      this.simulation.nodes(nodes).on("tick", ticked);
 
-      simulation.force("link").links(links);
+      this.simulation.force("link").links(links);
 
       d3.select(canvas).call(
         d3
@@ -202,12 +537,12 @@ export default {
       }
 
       function dragsubject() {
-        return simulation.find(d3.event.x, d3.event.y);
+        return that.simulation.find(d3.event.x, d3.event.y);
       }
 
       let that = this;
       function dragstarted() {
-        if (!d3.event.active) simulation.alphaTarget(0.2).restart();
+        if (!d3.event.active) that.simulation.alphaTarget(0.2).restart();
         d3.event.subject.fx = d3.event.subject.x;
         d3.event.subject.fy = d3.event.subject.y;
 
@@ -263,7 +598,7 @@ export default {
       }
 
       function dragended() {
-        if (!d3.event.active) simulation.alphaTarget(0);
+        if (!d3.event.active) that.simulation.alphaTarget(0);
         d3.event.subject.fx = null;
         d3.event.subject.fy = null;
       }
@@ -278,7 +613,7 @@ export default {
         let radius = 4;
         if ("citations" in d) {
           let minAllowed = 4;
-          let maxAllowed = 18;
+          let maxAllowed = 15;
           let unscaledNum = d.computedCitations;
           radius = Math.ceil(
             ((maxAllowed - minAllowed) * (unscaledNum - MIN)) / (MAX - MIN) +
@@ -448,6 +783,7 @@ export default {
   },
   mounted() {
     this.createViz();
+    // this.tagify = new Tagify(this.$refs.filterInput, {});
   },
 };
 </script>
