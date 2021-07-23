@@ -55,6 +55,7 @@
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
+- [Further Reading](#further-reading)
 
 ## What is SPARClink?
 ### NIH SPARC
@@ -128,4 +129,6 @@ See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./docs/CO
 ## License
 See [LICENSE](./LICENSE)
 
-
+## Further Reading
+- [ExternalAPIs](./ExternalAPIs/README.md)
+- [SPARC](./SPARC/README.md)
