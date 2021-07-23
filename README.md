@@ -111,18 +111,9 @@ Currently, the central database is implemented as a [Firebase](https://firebase.
 
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
 
-``` bash
-## Run the backend python server
-cd backend
-python api.py
+### Visualization Web App
 
-## Run the front end
-cd frontend
-npm install
-```
-
-
-Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)
+<!--Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)-->
 
 ## Maintainers
 * [Sanjay Soundarajan](https://github.com/megasanjay)
