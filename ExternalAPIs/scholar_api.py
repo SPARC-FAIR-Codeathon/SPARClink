@@ -40,17 +40,17 @@ import pandas as pd
 
 # Function that takes originatingArticleDOI scaraped from Pennsieve as input and searches
 
-def get_fromoriginatingdoi(originatingArticleDOI):
+def get_fromoriginatingdoi(originatingArticleDOI, authorization_key):
     params = {
         "engine": "google_scholar",
         "q": originatingArticleDOI,
-        "api_key": "2687012cd0135fde954ee61b3bfc8e27f614cf745dfec5730f3196bc7634b543"
+        "api_key": authorization_key
     }
     search = GoogleSearch(params)
     results = search.get_json()
     return results
 
-results = get_fromoriginatingdoi("10.13003/5jchdy")
+# results = get_fromoriginatingdoi("10.13003/5jchdy")
 # output below
 '''
 {
@@ -136,7 +136,7 @@ def getcitationandpubinfo(results):
     return record
 
 
-response = getcitationandpubinfo(results)
+#response = getcitationandpubinfo(results)
 
 # response is shown below
 '''
@@ -201,11 +201,11 @@ response = getcitationandpubinfo(results)
 '''
 
 # Function to use cites_id and search all related items
-def get_fromcitesid(cites_id):
+def get_fromcitesid(cites_id, authorization_key):
     params = {
         "engine": "google_scholar",
         "cites": cites_id,
-        "api_key": "2687012cd0135fde954ee61b3bfc8e27f614cf745dfec5730f3196bc7634b543"
+        "api_key": authorization_key
     }
     search = GoogleSearch(params)
     results = search.get_json()

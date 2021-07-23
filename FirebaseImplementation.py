@@ -10,6 +10,7 @@ from collections import UserString
 import time
 from pyasn1_modules.rfc2459 import Time
 import pyrebase
+from dotenv import dotenv_values
 
 from ExternalAPIs.NIH_NCBI import NIH_NCBI
 import SPARC.metadata_extraction as SPARC
@@ -26,6 +27,8 @@ firebaseConfig = {
     'measurementId': "G-N1K2EXBDZG"
 }
 #*******************************************************************#
+
+ENV_CONFIG = dotenv_values('.env')
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth     = firebase.auth()
@@ -214,7 +217,7 @@ def uploadProtocols ():
     
     print('Processing protocols...')
 
-    sparc_protocol_list = SPARC.parsing_protocols()
+    sparc_protocol_list = SPARC.parsing_protocols(ENV_CONFIG['PROTOCOLS_IO_KEY'])
 
     curr_protocol = 0
     for protocol in sparc_protocol_list:

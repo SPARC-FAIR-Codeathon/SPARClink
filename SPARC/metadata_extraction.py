@@ -153,10 +153,7 @@ def get_list_of_datasets_with_metadata(list_of_datasets):
 
     return list_of_datasets
 
-def parsing_protocols():
-    #****************** Update with protocols.io authorization details *******************#
-    authorization_key = "6f2a7221421ac802790b1469f435d6fabefc989a4103b6a0d470613f3bc6594e"
-    #*************************************************************************************#
+def parsing_protocols(authorization_key):
     url = "https://www.protocols.io/api/v3/groups/sparc/protocols"
     querystring = {
         "Authorization": authorization_key}
