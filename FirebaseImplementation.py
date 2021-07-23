@@ -91,12 +91,12 @@ def uploadDatasets (skip=0):
         for doi in dataset['originatingArticleDOI']:
             if (doi.find('org') != -1):
                 doi = doi.split('.org/')[1]
-            originating_articles.update(NN.getPublicationWithSearchTerm('{0}[doi]'.format(doi)))
+            originating_articles.update(NN.getPublicationWithSearchTerm('{0}[doi]'.format(doi))) # Find paper with the given doi.
 
         # Add protocols used by the dataset
         uploadDatasetProtocols(dataset['protocolsDOI'])
 
-        # Find papers associated with the dataset. Upload.
+        # Find papers associated with the dataset. i.e. papers that mention the dataset doi. Upload.
         dataset_pub_records = NN.getPublicationWithSearchTerm('"{0}"'.format(dataset_record['doi'].split('.org/')[1]))
         dataset_pub_records.update(originating_articles)
 

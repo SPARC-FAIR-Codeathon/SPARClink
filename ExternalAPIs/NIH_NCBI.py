@@ -182,7 +182,7 @@ class NIH_NCBI:
     
     #----------------------------------------------------
     # getPublications:
-    # Retrieve publications associated witha given grant application identified by the "appl_id"
+    # Retrieve publications associated with a given grant application identified by the "appl_id"
     #----------------------------------------------------
     def getPublications (self, appl_id):
         self.__NIH_timestamp = self.__maintainRequestFrequency(self.__NIH_timestamp, 1)
@@ -211,10 +211,8 @@ class NIH_NCBI:
         return record
 
     #----------------------------------------------------
-    # getPublicationsOfDataset:
-    # Use NCBI API to retrieve publications that mention the dataset identified by
-    # the doi. This function assumes that all the papers that mention the given doi
-    # uses the dataset.
+    # getPublicationWithSearchTerm:
+    # Get all publications that mention the given search term.
     #----------------------------------------------------
     def getPublicationWithSearchTerm (self, search_term):
         self.__NCBI_timestamp = self.__maintainRequestFrequency(self.__NCBI_timestamp, 1)
