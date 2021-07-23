@@ -44,7 +44,7 @@
         p-3
         w-80
         flex flex-col
-        divide-y-2
+        divide-y divide-gray-300
       "
     >
       <div class="py-3">
@@ -117,7 +117,9 @@
 
     <!-- node details window -->
     <div class="bg-transparent absolute top-5 right-3 p-3 w-3/12 flex flex-col">
-      <h2 class="font-sans text-lg text-gray-700">{{ resource_type }} Title</h2>
+      <h2 class="font-sans text-lg text-gray-700" v-if="title != ''">
+        {{ resource_type }} Title
+      </h2>
       <span class="font-sans text-base text-gray-500 leading-none mb-2">
         {{ title }}
       </span>
@@ -158,7 +160,7 @@
           {{ item }}
         </span>
       </div>
-      <h2 class="font-sans text-lg text-gray-700">DOI</h2>
+      <h2 class="font-sans text-lg text-gray-700" v-if="doi != ''">DOI</h2>
 
       <a :href="doi" target="_blank" class="p-0 leading-none">
         <span
@@ -400,7 +402,7 @@ export default {
           if (val.includes(node.group)) {
             keepFlag = true;
           }
-          if (keepFlag == true) {
+          if (keepFlag) {
             if (!keepList.includes(node.id)) {
               keepList.push(node.id);
             }
@@ -408,18 +410,18 @@ export default {
         });
 
         this.filtered_data = { nodes: [], links: [] };
-        data.nodes.forEach((item) => {
-          if (keepList.includes(item.id)) {
-            item.computedCitations = 0;
-            this.filtered_data.nodes.push(item);
+        data.nodes.forEach((node) => {
+          if (keepList.includes(node.id)) {
+            node.computedCitations = 0;
+            this.filtered_data.nodes.push(node);
           }
         });
-        data.links.forEach((item) => {
+        data.links.forEach((link) => {
           if (
-            keepList.includes(item.source) &&
-            keepList.includes(item.target)
+            keepList.includes(link.source) &&
+            keepList.includes(link.target)
           ) {
-            this.filtered_data.links.push(item);
+            this.filtered_data.links.push(link);
           }
         });
 
@@ -449,7 +451,6 @@ export default {
         } else {
           this.strength = -12;
         }
-
         this.drawCanvas(true);
       }
     },
@@ -490,7 +491,7 @@ export default {
 
       const links = data.links.map((d) => Object.create(d));
       const nodes = data.nodes.map((d) => Object.create(d));
-     
+
       this.simulation = d3
         .forceSimulation(nodes)
         .force(
@@ -649,7 +650,7 @@ export default {
       }
 
       let protocolsmap = [];
-      // Extract nodes from the datasets
+      // Extract nodes from the protocols
       for (const item in protocols) {
         let obj = protocols[item];
         obj.ogKey = obj.doi;
