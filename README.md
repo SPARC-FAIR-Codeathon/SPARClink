@@ -130,5 +130,5 @@ See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./docs/CO
 See [LICENSE](./LICENSE)
 
 ## Further Reading
-- [ExternalAPIs](./ExternalAPIs/README.md)
-- [SPARC](./SPARC/README.md)
+- [External APIs](./ExternalAPIs/README.md)
+- [SPARC APIs](./SPARC/README.md)
