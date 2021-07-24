@@ -1,3 +1,4 @@
+#import
 import re, os
 from collections import Counter
 from symspellpy.symspellpy import SymSpell as SymSpellPy, Verbosity
@@ -15,8 +16,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import networkx as nx
 import requests as req
+from gensim.models import KeyedVectors
 import json
-
+from gensim.scripts.glove2word2vec import glove2word2vec
 
 class SpellCheck:
     def __init__(self, dictionary=None, verbose=0):
@@ -26,6 +28,10 @@ class SpellCheck:
     def correction(self, text):
         return ''
 
+
+'''
+    Source: https://norvig.com/spell-correct.html
+'''
 class SpellCorrector(SpellCheck):
     def __init__(self, dictionary, verbose=0):
         super().__init__(dictionary=dictionary, verbose=verbose)
@@ -148,13 +154,13 @@ def text_lowercase(text):
 def generate_model_our_Data(title):
     # define training data
     sentences = title
+    #print(sentences)
     # train model
     model = Word2Vec(sentences, min_count=1)
     # summarize the loaded model
-    print(model)
     # summarize vocabulary
-    words = list(model.wv.key_to_index)
-    print(words)
+    #words = list(model.wv.key_to_index)
+    #print(words)
     # save model
     model.save('model_short.bin')
 
@@ -200,7 +206,7 @@ def get_title_word_freq_dict(title):
     title_word = [i for k in title for i in k]
     return Counter(title_word)
 
-def create_titleandlookup(dataset_df):
+def create_titleandlookup(dat3):
     title = []
     lookup = []
     en_stops = set_stopwrds()
@@ -222,40 +228,50 @@ def get_stopwords():
 def set_stopwrds():
     return set(stopwords.words('english'))
 
-def find_recomendation( title, lookup, word_list, new_model):
+def find_recomendation( title, lookup, word_list, new_model, full_model):
     distance = []
-    for i in title:
-      distance.append(new_model.wmdistance(word_list, i))
+    if full_model:
+      for i in title:
+        distance.append(new_model.wmdistance(word_list, i))
+    else:
+      for i in title:
+        distance.append(new_model.wv.wmdistance(word_list, i))
     if list(set(distance))[0] == np.inf:
-      return "not in the vocablary"
+      return "not in the vocablary" 
     else:
       zipped_lists = zip(distance, lookup)
       sorted_zipped_lists = sorted(zipped_lists)
       sorted_list1 = [element for _, element in sorted_zipped_lists]
     return sorted_list1
 
-def getRecomendation(string, dat3):
+def getRecomendation(string, dat3, full_model, recomendation):
+    fr = []
     string = remove_punctuation(text_lowercase(string)).split(" ")
+    string = [i for i in string if i not in set_stopwrds()] 
     title, lookup = create_titleandlookup(dat3)
     symspell = run_spellrecomender(get_title_word_freq_dict(title))
     correct_spell = []
     for i in string:
         correct_spell.append(check_spell(symspell, i)[0]["word"])
-    print(correct_spell)
-    new_model = generate_model_our_Data(correct_spell)
-    new_model = work_with_glove(new_model)
-    fr = find_recomendation( title, lookup, correct_spell, new_model)
-    return fr
+    if not recomendation:
+       return fr, correct_spell
+    new_model = generate_model_our_Data(title)
+    if full_model:
+       new_model = work_with_glove(new_model)
+    fr = find_recomendation( title, lookup, correct_spell, new_model, full_model)
+    return fr, correct_spell
 
-def main(string):
+def main(string, full_model = False, recomendation = True):
     response = req.get("https://sparclink-f151d-default-rtdb.firebaseio.com/.json")
     dataset = response.json()
     dat3 = dataset["ikP4sIT5PJMWFNCKG5eof5RN2Em1"]
-    json_string = json.dumps(getRecomendation(string, dat3))
+    ret, correct_spell = getRecomendation(string, dat3, full_model, recomendation)
+    json_string = json.dumps(ret)
     with open('data.json', 'w') as jsonfile:
          json.dump(json_string, jsonfile)
+    return ret, correct_spell
     
+##For Demo  ---------------------------------------------
 
-if __name__ == '__main__':
-    main("Identification of peripheral neural cercuit")
-    
+#if __name__ == '__main__':
+#    jj, cs = main("Identification of peripheral neural cercuit",False, True)
