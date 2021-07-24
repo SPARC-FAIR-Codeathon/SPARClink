@@ -46,7 +46,7 @@
 - [What is SPARClink?](#what-is-sparclink)
   - [NIH SPARC](#nih-sparc)
   - [FAIR Data](#fair-data)
-  - [Definining Impact](#defining-impact)
+  - [Defining Impact](#defining-impact)
   - [Origin Story](#origin-story)
   - [Goal](#goal)
 - [How it works](#how-it-works)
