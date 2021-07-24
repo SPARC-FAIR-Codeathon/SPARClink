@@ -12,7 +12,7 @@
 ```
 ## Demo
 ```
-python Sparcsearch.py("Identification of peripheral neural cercuit",False, True)
+python Sparcsearch.py "Identification of peripheral neural cercuit" False True
 ```
 ## Steps for usage:
 The main function takes three inputs: 
@@ -22,9 +22,9 @@ Returns the paper and dataset ids in order of relevance to search field (empty l
    This will then just perform spelling recomendation. If recomendation = True the code will perform spelling recomendation followed by paper recomendation.
 
 2. To train the model using Glove dataset :
-   a. Download https://nlp.stanford.edu/data/glove.6B.zip 
-   b. `!unzip glove.6B.zip`
-   c. `get_glove2wv()`
-   d. Set full_model = True
+   1. Download https://nlp.stanford.edu/data/glove.6B.zip 
+   2. `!unzip glove.6B.zip`
+   3. `get_glove2wv()`
+   4. Set full_model = True
 
 3. To run the code only on the words and tags associated with the dataset keep full model = Flase
