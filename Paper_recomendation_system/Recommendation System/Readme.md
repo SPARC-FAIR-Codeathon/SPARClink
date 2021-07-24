@@ -16,10 +16,12 @@ python Sparcsearch.py "Identification of peripheral neural cercuit" False True
 ```
 ## Steps for usage:
 The main function takes three inputs: 
-string, full_model = False, recomendation = True
-Returns the paper and dataset ids in order of relevance to search field (empty list in case of recomendation -> False) and spelling recomendation.
-1. To switch off the recomendation system for papers -> recomendation = False
-   This will then just perform spelling recomendation. If recomendation = True the code will perform spelling recomendation followed by paper recomendation.
+```
+main(string, full_model = False, recomendation = True)
+```
+Returns the paper and dataset ids in order of relevance to search field (empty list in case of `recomendation = False`) and spelling recomendation.
+1. To switch off the recomendation system for papers -> `recomendation = False`
+   This will then just perform spelling recomendation. If `recomendation = True` the code will perform spelling recomendation followed by paper recomendation.
 
 2. To train the model using Glove dataset :
    1. Download https://nlp.stanford.edu/data/glove.6B.zip 
