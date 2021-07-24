@@ -1,6 +1,6 @@
 # sparc-portal-demo
 
-This demo page is built using [VueJS](https://vuejs.org/) and [Tailwind CSS](https://tailwindcss.com/). It has been developed to mimic the SPARC portal found at [sparc.science](https://sparc.science). In order to get this project running please run the following commands: 
+This demo page is built using [VueJS](https://vuejs.org/) and [Tailwind CSS](https://tailwindcss.com/). It has been developed to mimic the SPARC portal found at [sparc.science](https://sparc.science). In order to get this project running please refer to the [Project setup](https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/frontend/README.md#project-setup) section. 
 
 ## Project setup
 ``` bash
