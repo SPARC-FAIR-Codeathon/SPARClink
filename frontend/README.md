@@ -39,7 +39,7 @@ npm run deploy
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-## Requesting Data from the real-time database
+## Requesting data from the real-time database
 SPARClink uses a Firebase real-time database as its intermediary data storage server. This allows for the backend citation extraction system to reside in a seperate server and allow the frontend to pull data asynchronously. If you prefer another data storage mechanism please add and modify the appropriate end point in the SPARClink component found in the `frontend/src/components/SparcLink/SparcLink.vue` file. The url endpoint for the GET request can be found in the `organizeData` function in the `methods` section. Our backend systems only allows authenticated users to write to the database so you will need to refer to the appropriate User ID when referencing the object.
 
 ## Adjusting the physics of the visualization
