@@ -140,3 +140,4 @@ See [LICENSE](./LICENSE)
 ## Further Reading
 - [External APIs](./ExternalAPIs/README.md)
 - [SPARC APIs](./SPARC/README.md)
+- [Visualization and frontend](./frontend/README.md)
