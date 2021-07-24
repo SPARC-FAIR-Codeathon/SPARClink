@@ -132,10 +132,13 @@ You can now open your browser and visit the url [http://localhost:8080/sparclink
 * [Sachira Kuruppu](https://github.com/rsachira-abi)
 
 ## Contributing
-See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./docs/CODE_OF_CONDUCT.md). Add a [GitHub Star](https://github.com/SPARC-FAIR-Codeathon/SPARClink) to support active development!
+If you would like to suggest an idea to this project, please let us know in the [issues](https://github.com/SPARC-FAIR-Codeathon/SPARClink/issues) page and we will take a look at your suggestion. Please use the `enhacement` tag to label your suggestion. 
+
+If you would like to add your own feature, feel free to fork the project and send a pull request our way. This is an open source project so we will welcome your contributiobs with open arms. 
+Refer to our [Contributing Guildeines](./docs/CONTRIBUTING.md) and [Code of Conduct](./docs/CODE_OF_CONDUCT.md) for more information. Add a [GitHub Star](https://github.com/SPARC-FAIR-Codeathon/SPARClink) to support active development!
 
 ## License
-See [LICENSE](./LICENSE)
+SPARClink is an open source project and distributed under the  MIT License. See [LICENSE](./LICENSE) for more details.
 
 ## Further Reading
 - [External APIs](./ExternalAPIs/README.md)
