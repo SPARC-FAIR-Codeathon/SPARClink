@@ -6,7 +6,9 @@ This module contains API implementations to communicate with SPARC Pennsieve and
 
 ### get_list_of_datasets_with_metadata([])
 
-Return all the dataset from SPARC Pennsieve. Return object:
+Return all the dataset from SPARC Pennsieve. 
+
+Return object:
 ``` python
 [..., {
     'datasetId': 64, 
@@ -41,7 +43,9 @@ Return all the dataset from SPARC Pennsieve. Return object:
 ### parsing_protocols(authorization_key)
 - `authorization_key` : API key obtained from protocols.io
 
-Returns all the protocols in the SPARC workspace. Return object:
+Returns all the protocols in the SPARC workspace. 
+
+Return object:
 ``` Python
 [...{
   "authors" : [ {
