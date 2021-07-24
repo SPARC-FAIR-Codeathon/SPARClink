@@ -4,9 +4,12 @@ Requirement:
 ```
 !python -m nltk.downloader stopwords
 ```
+```
 !python -m pip install -U symspellpy
+```
+```
 !pip install --upgrade gensim
-
+```
 Steps for usage:
 The main function takes three inputs: 
 string, full_model = False, recomendation = True
@@ -16,7 +19,7 @@ Returns the paper and dataset ids in order of relevance to search field (empty l
 
 2. To train the model using Glove dataset :
    a. Download https://nlp.stanford.edu/data/glove.6B.zip 
-   b. !unzip glove.6B.zip
+   b. `!unzip glove.6B.zip`
    c. Run get_glove2wv() Required to be executed only once. Standalone method.
    d. Set full_model = True
 
