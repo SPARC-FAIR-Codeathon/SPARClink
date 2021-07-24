@@ -43,7 +43,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 SPARClink uses a Firebase real-time database as its intermediary data storage server. This allows for the backend citation extraction system to reside in a seperate server and allow the frontend to pull data asynchronously. If you prefer another data storage mechanism please add and modify the appropriate end point in the SPARClink component found in the `frontend/src/components/SparcLink/SparcLink.vue` file. The url endpoint for the GET request can be found in the `organizeData` function in the `methods` section. Our backend systems only allows authenticated users to write to the database so you will need to refer to the appropriate User ID when referencing the object.
 
 ## Adjusting the physics of the visualization
-[d3.js](https://d3js.org/) provides extensive documentation on the physics that we implement on out visualizations. If you would like to modify how the graph behaves, the best place to start at is the force simulations in the `drawCanvas` function. d3.js also provides the option of rendering graphs in SVG elements but the limit of nodes that a simulation can accept, before there is a considerable performance drop, is low.
+[d3.js](https://d3js.org/) provides extensive documentation on the physics that we implement on our visualizations. If you would like to modify how the graph behaves, the best place to start at is the force simulations in the `drawCanvas` function. d3.js also provides the option of rendering graphs in SVG elements but the limit of nodes that a simulation can accept, before there is a considerable performance drop, is low.
 ```javascript
 this.simulation = d3
   .forceSimulation(nodes)
