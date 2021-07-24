@@ -46,6 +46,7 @@
 - [What is SPARClink?](#what-is-sparclink)
   - [NIH SPARC](#nih-sparc)
   - [FAIR Data](#fair-data)
+  - [Definining Impact](#defining-impact)
   - [Origin Story](#origin-story)
   - [Goal](#goal)
 - [How it works](#how-it-works)
@@ -60,7 +61,7 @@
 
 ## What is SPARClink?
 ### NIH SPARC
-The NIH Common Fund’s Stimulating Peripheral Activity to Relieve Conditions (SPARC) program aims to transform our understanding of nerve-organ interactions with the intent of advancing bioelectronic medicine towards treatments that change lives. [Learn more about SPARC](https://sparc.science/)
+The NIH Common Fund’s Stimulating Peripheral Activity to Relieve Conditions (SPARC) program aims to transform our understanding of nerve-organ interactions with the intent of advancing bioelectronic medicine towards treatments that change lives. [Learn more about SPARC](https://sparc.science/about)
 
 ### FAIR Data
 By employing a [FAIR](https://www.nature.com/articles/sdata201618) (Findable, Accessible, Interoperable and Reusable) first approach SPARC datasets, protocols and publications generated via the SPARC program is intended to be able to be used by researchers globally with reproducible results. However, at the current moment, there is no real tangible way to show or visualize the usage of SPARC data in outside projects and publications. 
@@ -69,7 +70,7 @@ By employing a [FAIR](https://www.nature.com/articles/sdata201618) (Findable, Ac
 The SPARClink project was first born as an idea at the 2021 NIH SPARC Codeathon ([more details here](https://sparc.science/help/2021-sparc-fair-codeathon)). The idea behind the topic was created as a method of visualizing citation data on datasets, protocols and publications to determine the degree of use of SPARC material outside of the official channels.
 
 ### Definining Impact
-The word `Impact` can have many different meanings depending on the context that it is viewed in. Within the SPARClink project, we consider impact to be the frequency of citations of SPARC funded resources. The SPARC program intends to advance medical understanding by providing datasets, maps and computational studies that are follow FAIR principles and is used by researchers all around the world. The usage of SPARC resouces by platforms and programs ouside SPARC are what we view as the meaning of the term `Impact`.
+The word `Impact` can have many different meanings depending on the context that it is viewed in. Within the SPARClink project, we consider impact to be the frequency of citations of SPARC funded resources. The SPARC program intends to advance medical understanding by providing datasets, maps and computational studies that are follow FAIR principles and is used by researchers all around the world. The usage of SPARC resouces by platforms and programs ouside SPARC is what we view as the meaning of the term `Impact`.
 
 ### Goal
 The goal of SPARClink is to provide a system that will query all external publications using open source tools and platforms and create an interactable visualization that is helpful to any regular person to showcase the impact that SPARC has on the overall scientific research community. These impact measurements are meant to be used as a showcase of the concept of FAIR data and how good data generation practices and methods are useful in advancing the field of bioelectronic medicine. 
