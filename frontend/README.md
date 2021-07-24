@@ -21,7 +21,7 @@ npm run build
 ``` bash
 npm run lint
 ```
-#### Deploy to Firebase
+### Deploy to Firebase
 If you would like to push your own fork/clone of this repository to Firebase as a hosting provider, use the following instructions. You must already have a google email account and a project set up in your Firebase console. Please also remove any existing .firebaserc files. You don't need to edit your firebase.json file since it refers to the public files required for the host process.
 ``` bash
 npm install -D firebase-tools
@@ -37,6 +37,7 @@ npm run deploy
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
 
 ## Requesting Data from the real-time database
 SPARClink uses a Firebase real-time database as its intermediary data storage server. This allows for the backend citation extraction system to reside in a seperate server and allow the frontend to pull data asynchronously. If you prefer another data storage mechanism please add and modify the appropriate end point in the SPARClink component found in the `frontend/src/components/SparcLink/SparcLink.vue` file. The url endpoint for the GET request can be found in the `organizeData` function in the `methods` section. Our backend systems only allows authenticated users to write to the database so you will need to refer to the appropriate User ID when referencing the object.
