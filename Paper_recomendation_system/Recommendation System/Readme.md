@@ -1,7 +1,7 @@
 # Spelling and Paper Recomender
 
 Requirement:
-!python -m nltk.downloader stopwords
+'!python -m nltk.downloader stopwords'
 !python -m pip install -U symspellpy
 !pip install --upgrade gensim
 
