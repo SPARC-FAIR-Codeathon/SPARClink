@@ -22,7 +22,7 @@ npm run build
 npm run lint
 ```
 ### Deploy to Firebase
-If you would like to push your own fork/clone of this repository to Firebase as a hosting provider, use the following instructions. You must already have a google email account and a project set up in your Firebase console. Please also remove any existing .firebaserc files. You don't need to edit your firebase.json file since it refers to the public files required for the host process.
+If you would like to push your own fork/clone of this repository to Firebase as a hosting provider, use the following instructions. You must already have a google email account and a project set up in your Firebase console. Please also remove any existing `.firebaserc` files. You don't need to edit your `firebase.json` file since it refers to the public files required for the deployment process.
 ``` bash
 npm install -D firebase-tools
 
