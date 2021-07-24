@@ -1,6 +1,6 @@
 # Spelling and Paper Recomender
 
-Requirement:
+## Requirement:
 ```
 !python -m nltk.downloader stopwords
 ```
@@ -10,7 +10,7 @@ Requirement:
 ```
 !pip install --upgrade gensim
 ```
-Steps for usage:
+## Steps for usage:
 The main function takes three inputs: 
 string, full_model = False, recomendation = True
 Returns the paper and dataset ids in order of relevance to search field (empty list in case of recomendation -> False) and spelling recomendation.
