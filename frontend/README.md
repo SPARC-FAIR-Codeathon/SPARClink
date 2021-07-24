@@ -56,4 +56,4 @@ this.simulation = d3
   .force("charge", d3.forceManyBody().strength(this.strength))
   .force("center", d3.forceCenter(WIDTH / 2, HEIGHT / 2));
 ```
-You many define your own forces to act on the nodes or use d3's default forces. Please be aware that the canvas itself has a limit on the amount of nodes that can be drawn in its context before performance takes a hit. Within our own testing 8,000 to 10,000 nodes is the limit of acceptable performance. If your database is larger than this amount, please see if you can filter out any nodes that are present in the data.
+You may define your own forces to act on the nodes or use d3's default forces. Please be aware that the canvas itself has a limit on the amount of nodes that can be drawn in its context before performance takes a hit. Within our own testing 8,000 to 10,000 nodes is the limit of acceptable performance. If your database is larger than this amount, please see if you can filter out any nodes that are present in the data.
