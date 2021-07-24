@@ -5,7 +5,6 @@ import "./index.css";
 
 import HomePage from "./components/HomePage/HomePage.vue";
 import SparcLink from "./components/SparcLink/SparcLink.vue";
-import SparclinkSvg from "./components/SparcLink/SparclinkSvg.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -23,7 +22,6 @@ const router = createRouter({
     { path: "/", name: "root", redirect: "/home" },
     { path: "/home", component: HomePage },
     { path: "/sparclink", component: SparcLink },
-    { path: "/SparclinkSvg", component: SparclinkSvg },
   ],
 });
 

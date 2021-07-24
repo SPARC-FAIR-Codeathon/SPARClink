@@ -19,7 +19,7 @@
           d="M12 7.148a.9.9 0 10.9.9.9.9 0 00-.9-.9zM12 17.148a1 1 0 01-1-1v-5.4a1 1 0 112 0v5.4a1 1 0 01-1 1z"
         ></path>
       </svg>
-      <span class="text-white text-xs px-1">
+      <span class="text-white text-sm px-1">
         This is a developer demo of the SPARC Portal. Click here to go to
         official SPARC Portal
       </span>
@@ -167,7 +167,6 @@ export default {
         { name: "Find Data", href: "/" },
         { name: "Tools & Resources", href: "/" },
         { name: "Maps", href: "/" },
-        { name: "SPARClink SVG", href: "/SparclinkSvg" },
         { name: "SPARClink", href: "/sparclink" },
       ],
     };
