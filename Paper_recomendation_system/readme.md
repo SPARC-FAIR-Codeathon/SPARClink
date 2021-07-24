@@ -1,4 +1,4 @@
-#Spelling and Paper Recommender
+# Spelling and Title recomender
 
 
 Requirements:
