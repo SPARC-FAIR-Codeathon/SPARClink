@@ -100,7 +100,7 @@ The application uses [python-dotenv](https://github.com/theskumar/python-dotenv)
 PROTOCOLS_IO_KEY="<protocols.io api key>"
 SERPAPI_KEY="<serpapi api key>"
 ```
-A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). Serp api key is not required at the moment. To integrate google scholar results, an API key can be obtained as [shown here](https://serpapi.com/).
+A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). SERP api key is not required at the moment. To integrate google scholar results, an API key can be obtained as [shown here](https://serpapi.com/).
 
 ### Testing
 Unit tests to verify external APIs are written in Python unittest framework. The tests can be run as shown below:
@@ -114,6 +114,13 @@ Currently, the central database is implemented as a [Firebase](https://firebase.
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
 
 ### Visualization Web App
+The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally use the following commands:
+```bash
+cd frontend
+npm install
+npm run serve
+```
+You can now open your browser and visit the url [http://localhost:8080/sparclink](http://localhost:8080/sparclink) to view the webpage. 
 
 <!--Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)-->
 
