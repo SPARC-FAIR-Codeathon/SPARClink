@@ -18,6 +18,7 @@ dependencies:
     - symspellpy
     - gensim
     - flask
+    - flask_cors
     - matplotlib
     - wordcloud
     - pyemd
