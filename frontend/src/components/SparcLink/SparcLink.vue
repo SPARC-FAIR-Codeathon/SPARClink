@@ -4,8 +4,11 @@
     class="border border-gray-500 flex flex-row justify-center relative"
     style="min-height: 200px"
   >
-    <div>
+    <div class="flex flex-col items-center">
       <canvas width="1300" height="800"></canvas>
+      <p v-if="filter_words != ''" class="my-5 font-sans text-lg">
+        Filtering by <span class="font-sans text-base text-gray-600"> {{ filter_words }} </span>
+      </p>
     </div>
     <div class="bg-transparent absolute top-5 left-5 p-3 w-80 flex flex-col">
       <h2 class="font-sans text-lg text-gray-700 mb-0">Legend</h2>
@@ -48,7 +51,7 @@
         divide-y divide-gray-300
       "
     >
-      <div id="svgContainer" class="pb-2"></div>
+      <div id="svgContainer" class="pb-5"></div>
       <div class="py-3">
         <h2 class="font-sans text-lg text-gray-700 mb-0">Filter the graph</h2>
         <div class="flex flex-row items-center">
@@ -289,6 +292,7 @@ export default {
       filterLonely: false,
       filterNodes: [],
       loadingSpinner: false,
+      filter_words: "",
     };
   },
   methods: {
@@ -619,9 +623,9 @@ export default {
             const topRankedIds = topRanked.slice(0, 10);
 
             that.topRankedMaterial = [];
-            console.log(correctTerms)
+            console.log(correctTerms);
             filter_words = correctTerms;
-            that.filterInput = correctTerms
+            that.filter_words = correctTerms.join(",");
 
             topRankedIds.forEach((item) => {
               data.nodes.forEach((node) => {
