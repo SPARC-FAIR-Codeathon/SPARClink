@@ -125,6 +125,13 @@ Currently, the central database is implemented as a [Firebase](https://firebase.
 
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
 
+<p align="center">
+  <!--<img src="https://user-images.githubusercontent.com/21206996/125478715-d5f83b6f-8a6d-4ef8-a845-952baa27d8da.png" />-->
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/backend_flow_chart-01.png" width="500"/>
+  <br/>
+  <span>Backend Flow Chart: Shows the methods implemented in the backend to gather citations of datasets, protocols, and SPARC publications.</span>
+</p>
+
 ### ML Data Indexing Engine
 
 
