@@ -108,7 +108,7 @@
         </a>
       </div>
     </div>
-    <div class="flex flex-row items-center px-5">
+    <div class="flex flex-row items-center px-5 hidden">
       <div class="flex flex-row items-center px-5">
         <div class="border rounded border-gray-900 flex flex-row w-80">
           <div
@@ -137,6 +137,7 @@
           flex
           items-center
           justify-center
+          hidden
         "
       >
         <svg

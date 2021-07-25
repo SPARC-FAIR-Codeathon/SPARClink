@@ -126,7 +126,7 @@
     </div>
 
     <!-- node details window -->
-    <div class="bg-transparent absolute top-5 right-3 p-3 w-3/12 flex flex-col">
+    <div class="bg-transparent absolute top-5 right-2 p-3 w-3/12 flex flex-col">
       <h2 class="font-sans text-lg text-gray-700" v-if="title != ''">
         {{ resource_type }} Title
       </h2>
@@ -156,6 +156,13 @@
       >
         {{ datasetDescription }}
       </span>
+
+      <h2 class="font-sans text-lg text-gray-700" v-if="computedCitations != 0">
+        Number of cited components:
+        <span class="font-sans text-base text-gray-500 leading-none mb-2">
+          {{ computedCitations }}
+        </span>
+      </h2>
 
       <h2 class="font-sans text-lg text-gray-700" v-if="datasetTags.length > 0">
         Dataset Tags
@@ -209,6 +216,7 @@ export default {
       doi: "",
       award: "",
       datasetDescription: "",
+      computedCitations: 0,
       datasetTags: [],
       cite_max: 0,
       cite_min: 0,
@@ -365,6 +373,22 @@ export default {
 
       const val = this.filterInput.trim();
 
+      let requestData = JSON.stringify({
+          inputString: val,
+          fullModel: false,
+          recommendation: true,
+        })
+        
+
+      axios
+        .post("https://megasanjay.pythonanywhere.com/sparcsearch", )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       if (val == "") {
         this.drawCanvas();
       } else {
@@ -379,7 +403,7 @@ export default {
             item.tags.forEach((tag) => {
               filter_words.forEach((word) => {
                 if (tag.search(word) != -1) {
-                  console.log("Found in tag", item.id);
+                  // console.log("Found in tag", item.id);
                   removeFlag = false;
                 }
               });
@@ -388,7 +412,7 @@ export default {
           if ("title" in item) {
             filter_words.forEach((word) => {
               if (item.title.search(word) != -1) {
-                console.log("Found in title", item.id);
+                // console.log("Found in title", item.id);
                 removeFlag = false;
               }
             });
@@ -396,7 +420,7 @@ export default {
           if ("description" in item) {
             filter_words.forEach((word) => {
               if (item.description.search(word) != -1) {
-                console.log("Found in description", item.id);
+                // console.log("Found in description", item.id);
                 removeFlag = false;
               }
             });
@@ -404,7 +428,7 @@ export default {
           if ("author_list" in item) {
             filter_words.forEach((word) => {
               if (item["author_list"].search(word) != -1) {
-                console.log("Found in author_list", item.id);
+                // console.log("Found in author_list", item.id);
                 removeFlag = false;
               }
             });
@@ -412,7 +436,7 @@ export default {
           if ("url" in item) {
             filter_words.forEach((word) => {
               if (item.url.search(word) != -1) {
-                console.log("Found in url", item.id);
+                // console.log("Found in url", item.id);
                 removeFlag = false;
               }
             });
@@ -420,7 +444,7 @@ export default {
           if ("journal" in item) {
             filter_words.forEach((word) => {
               if (item.journal.search(word) != -1) {
-                console.log("Found in journal", item.id);
+                // console.log("Found in journal", item.id);
                 removeFlag = false;
               }
             });
@@ -613,7 +637,13 @@ export default {
             that.resource_type = "Publication";
             break;
           default:
-            that.resource_type = node.group;
+            that.resource_type = "";
+        }
+
+        if ("computedCitations" in node) {
+          that.computedCitations = node.computedCitations;
+        } else {
+          that.computedCitations = 0;
         }
       }
 
