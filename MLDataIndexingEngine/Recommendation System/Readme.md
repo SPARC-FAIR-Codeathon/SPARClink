@@ -20,6 +20,9 @@
 ```
 ## Steps for usage:
 The main function takes three inputs: 
+1. `string` This paprameter takes in a string. The output from the search bar goes here.
+2. `full_model` If 'True' then uses Glove model. (Read below for further instruction)
+3. `recomendation` If `True` then use the word2vec model to return the article recomendation system.
 ```
 main(string, full_model = False, recomendation = True)
 ```
