@@ -42,6 +42,12 @@
   <a href="https://sparclink-f151d.web.app/sparclink" target="_blank">SPARClink Web App</a>
 </h4>
 
+<p align="center">
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25%2013-47-30.gif" width="500"/>
+  <br/>
+  <span> SPARClink workflow </span>
+</p>
+
 ## Table of content
 - [What is SPARClink?](#what-is-sparclink)
   - [NIH SPARC](#nih-sparc)
