@@ -8,36 +8,47 @@
 * [References](#References)
 
 ## Description:
-Sparcsearch.py is a recomendation system that was built with the aim to make serching for documents using keywords simpler and user friendly. There are two mechanism here. First one is a word recomendation or spelling recomendation which given a string tries to look for the most probable word in the vocabulary. The second part uses the spelling recomendation to look for papers and dataset present in the firebase dataset to get most relatable articles to whats being searched. This is based on the word embedding generated using word2vec model (the code also provides option of using GloVe embedding). Word2vec model generates a vabulary and vector representation for each article based on their title and description. when a string is serched it's vector represtenation is generated and then we measure the cosine similarity between that vector and the vector representation of each article title/description. We pick the top 10 of these to show on the website.
+This is a recommendation system that was built with the aim to make searching for documents using keywords simpler and user friendly. The two mechanisms used in this module are explained below. 
+
+First is a word recommendation or spelling recommendation which takes a given string looks for the most probable word in the vocabulary. 
+
+The second part uses the spelling recommendation to look for publications and datasets present in the Firebase real-time daatabase to get most relatable articles with respect to the search terms. This is based on a word embedding generated using a word2vec model (the code also provides option of using GloVe embedding). 
+
+Word2vec model generates a vocabulary and vector representation for each article based on their title and description. When a string is serched its vector representation is generated and the cosine similarity between that vector and the vector representation of each article title/description is measured.
+
+We pick the top 10 of these to show on the frontend.
+
 For further reading please refer to references.
+
 ## Requirement:
-To use this function as a standalone (outside this website) follow the below instruction otherwise these are also mentioned in environmoent of this website
-```
+To run this function standalone follow the instructions below. These commands are already handled if you are using the SPARClink conda environment.
+```python
 !python -m nltk.downloader stopwords
-```
-```
 !python -m pip install -U symspellpy
-```
-```
 !pip install --upgrade gensim
 ```
+
 ## Steps for usage:
 The main function takes three inputs: 
-1. `string` This paprameter takes in a string. The output from the search bar goes here.
-2. `full_model` If 'True' then uses Glove model. (Read below for further instruction)
-3. `recomendation` If `True` then use the word2vec model to return the article recomendation system.
-```
-main(string, full_model = False, recomendation = True)
-```
-Returns the paper and dataset ids in order of relevance to search field (empty list in case of `recomendation = False`) and spelling recomendation.
-1. To switch off the recomendation system for papers -> `recomendation = False`
-   This will then just perform spelling recomendation. If `recomendation = True` the code will perform spelling recomendation followed by paper recomendation.
+1. `string`: This parameter takes in a string. The output from the search bar goes here.
+2. `full_model`: If 'True' then uses Glove model. (Read below for further instructions)
+3. `recommendation`: If `True` then use the word2vec model to return the article recomendation system.
 
-2. To train the model using Glove dataset :
+
+```python
+SparcSearch(string, full_model = False, recomendation = True)
+```
+
+Returns the publication and dataset ids in order of relevance to search field (empty list in case of `recommendation = False`) and spelling recommendation.
+1. To switch off the recommendation system for papers set `recommendation` to `False`. This will then only run the spelling recommendation. 
+
+2. If `recommendation = True` the code will perform spelling recommendation followed by paper recommendation.
+
+3. To train the model using the Glove dataset :
    1. Download https://nlp.stanford.edu/data/glove.6B.zip 
    2. `!unzip glove.6B.zip`
    3. `get_glove2wv()`
-   4. Set full_model = True
+   4. Set `full_model` to True
 
 3. To run the code only on the words and tags associated with the dataset keep full model = Flase
 
