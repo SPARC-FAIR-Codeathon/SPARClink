@@ -43,7 +43,7 @@
 </h4>
 
 <p align="center">
-  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25%2013-47-30.gif" width="500"/>
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25%2013-47-30.gif"/>
   <br/>
   <span> SPARClink workflow </span>
 </p>
