@@ -14,6 +14,9 @@ def create_title(dat3 ):
     random.shuffle(title)
     return title
 
+def text_lowercase(text):
+    return text.lower()
+
 def get_keywords(dat3,n):
   x = {}
   for i in range(2):
