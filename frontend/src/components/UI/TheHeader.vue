@@ -164,10 +164,10 @@ export default {
   data() {
     return {
       navLinksList: [
-        { name: "Home", href: "/" },
-        { name: "Find Data", href: "/" },
-        { name: "Tools & Resources", href: "/" },
-        { name: "Maps", href: "/" },
+        { name: "Home", href: "/home" },
+        { name: "Find Data", href: "/home" },
+        { name: "Tools & Resources", href: "/home" },
+        { name: "Maps", href: "/home" },
         { name: "SPARClink", href: "/sparclink" },
       ],
     };

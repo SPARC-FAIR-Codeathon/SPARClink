@@ -19,7 +19,7 @@ const router = createRouter({
     }
   },
   routes: [
-    { path: "/", name: "root", redirect: "/home" },
+    { path: "/", name: "root", redirect: "/sparclink" },
     { path: "/home", component: HomePage },
     { path: "/sparclink", component: SparcLink },
   ],

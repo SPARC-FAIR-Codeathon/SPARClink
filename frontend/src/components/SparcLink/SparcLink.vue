@@ -1,10 +1,9 @@
 <template>
   <div
-    id="svg_container"
     class="border border-gray-500 flex flex-row justify-center relative"
     style="min-height: 200px"
   >
-    <div id="svg-container" ref="svgContainer">
+    <div>
       <canvas width="1300" height="800"></canvas>
     </div>
     <div class="bg-transparent absolute top-5 left-5 p-3 w-80 flex flex-col">
@@ -194,6 +193,65 @@
         >
       </a>
     </div>
+
+    <!-- top ranked window -->
+    <div
+      class="bg-transparent absolute bottom-5 right-2 p-3 w-3/12 flex flex-col"
+    >
+      <h2
+        class="font-sans text-lg text-gray-700"
+        v-if="topRankedMaterial.length > 0 || loadingSpinner"
+      >
+        Top 10 ranked items for filter terms
+      </h2>
+
+      <div class="flex items-center" v-if="loadingSpinner">
+        <div
+          class="
+            animate-spin
+            rounded-full
+            h-24
+            w-24
+            my-10
+            border-t-2 border-b-2 border-purple-500
+          "
+        ></div>
+      </div>
+
+      <div
+        v-if="!loadingSpinner"
+        class="mb-2 flex flex-col divide-y divide-gray-200 h-60 overflow-auto"
+      >
+        <div v-for="item in topRankedMaterial" :key="item.id" class="py-2 mr-6">
+          <h3 class="text-base font-sans">Title</h3>
+          <span class="text-sm font-sans">
+            {{ item.title }}
+          </span>
+          <h3 class="text-sm">
+            DOI:
+            <a
+              :href="getDoiURL(item.doi)"
+              target="_blank"
+              class="p-0 leading-none"
+            >
+              <span
+                class="
+                  underline
+                  text-blue-500
+                  hover:text-blue-700
+                  text-sm
+                  font-sans
+                  leading-none
+                  p-0
+                "
+              >
+                {{ item.doi }}
+              </span>
+            </a>
+          </h3>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -224,16 +282,19 @@ export default {
       strength: -12,
       resource_type: "",
       citationsRange: [],
+      topRankedMaterial: [],
       simulation: "",
       filterLonely: false,
       filterNodes: [],
+      loadingSpinner: false,
     };
   },
-
   methods: {
     filterByNodes: function () {
       this.filterInput = "";
       this.filterLonely = false;
+      this.loadingSpinner = false;
+      this.topRankedMaterial = [];
       this.simulation.stop();
 
       const val = this.filterNodes;
@@ -305,6 +366,8 @@ export default {
     filterByLonely: function () {
       this.filterInput = "";
       this.filterNodes = [];
+      this.loadingSpinner = false;
+      this.topRankedMaterial = [];
       this.simulation.stop();
 
       const val = this.filterLonely;
@@ -373,29 +436,57 @@ export default {
 
       const val = this.filterInput.trim();
 
-      let requestData = JSON.stringify({
-          inputString: val,
-          fullModel: false,
-          recommendation: true,
-        })
-        
-
-      axios
-        .post("https://megasanjay.pythonanywhere.com/sparcsearch", )
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
       if (val == "") {
+        this.loadingSpinner = false;
+        this.topRankedMaterial = [];
         this.drawCanvas();
       } else {
         const filter_words = val.split(" ");
         let data = JSON.parse(JSON.stringify(this.organized_data));
 
         let removeList = [];
+
+        let requestData = JSON.stringify({
+          inputString: val,
+          fullModel: false,
+          recommendation: true,
+        });
+
+        let config = {
+          method: "post",
+          url: "https://megasanjay.pythonanywhere.com/sparcsearch",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: requestData,
+        };
+
+        let that = this;
+
+        this.loadingSpinner = true;
+        this.topRankedMaterial = [];
+        axios(config)
+          .then(function (response) {
+            const topRanked = response.data.topRanked;
+            const topRankedIds = topRanked.slice(0, 10);
+
+            that.topRankedMaterial = [];
+
+            topRankedIds.forEach((item) => {
+              data.nodes.forEach((node) => {
+                if (node.id == item) {
+                  let obj = node;
+                  that.topRankedMaterial.push(obj);
+                }
+              });
+            });
+
+            that.loadingSpinner = false;
+          })
+          .catch(function (error) {
+            console.log(error);
+            that.loadingSpinner = false;
+          });
 
         data.nodes.forEach((item) => {
           let removeFlag = true;
@@ -503,20 +594,6 @@ export default {
 
         this.drawCanvas(true);
       }
-    },
-    getDoiURL: function (doi) {
-      if (doi != "") {
-        const http_pos = doi.search("http");
-        if (http_pos != -1) {
-          return doi;
-        }
-        const org_pos = doi.search("org");
-        if (org_pos != -1) {
-          const val = doi.substring(org_pos + 4);
-          return `https://dx.doi.org/${val}`;
-        }
-        return `https://dx.doi.org/${doi}`;
-      } else return "#";
     },
     drawCanvas: function (filtered = false) {
       let data;
@@ -678,6 +755,20 @@ export default {
         context.moveTo(d.x + radius, d.y);
         context.arc(d.x, d.y, radius, 0, 2 * Math.PI);
       }
+    },
+    getDoiURL: function (doi) {
+      if (doi != "") {
+        const http_pos = doi.search("http");
+        if (http_pos != -1) {
+          return doi;
+        }
+        const org_pos = doi.search("org");
+        if (org_pos != -1) {
+          const val = doi.substring(org_pos + 4);
+          return `https://dx.doi.org/${val}`;
+        }
+        return `https://dx.doi.org/${doi}`;
+      } else return "#";
     },
     organizeData: async function (database) {
       let data = { nodes: [], links: [] };
@@ -852,5 +943,38 @@ export default {
   border-width: 5px;
   height: 25px;
   width: 25px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+/* button */
+::-webkit-scrollbar-button {
+  background: rgba(220, 222, 224, 0.849);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(155, 152, 152);
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(115, 117, 117);
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(220, 222, 224, 0.849);
+}
+/* The track NOT covered by the handle. */
+::-webkit-scrollbar-track-piece {
+  background: rgba(220, 222, 224, 0.849);
+}
+/* Corner */
+::-webkit-scrollbar-corner {
+  background: rgba(220, 222, 224, 0.849);
+}
+/* Resizer */
+::-webkit-resizer {
+  background: rgba(220, 222, 224, 0.849);
 }
 </style>
