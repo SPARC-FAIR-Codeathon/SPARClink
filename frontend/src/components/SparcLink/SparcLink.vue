@@ -1,4 +1,5 @@
 <template>
+  <!-- legend -->
   <div
     class="border border-gray-500 flex flex-row justify-center relative"
     style="min-height: 200px"
@@ -34,6 +35,7 @@
       </div>
     </div>
 
+    <!-- Left controls panel -->
     <div
       class="
         bg-transparent
@@ -46,6 +48,7 @@
         divide-y divide-gray-300
       "
     >
+      <div id="svgContainer" class="pb-2"></div>
       <div class="py-3">
         <h2 class="font-sans text-lg text-gray-700 mb-0">Filter the graph</h2>
         <div class="flex flex-row items-center">
@@ -258,9 +261,8 @@
 <script>
 const d3 = require("d3");
 const axios = require("axios");
-// import Tagify from "@yaireo/tagify";
 import { v4 as uuidv4 } from "uuid";
-// import "@yaireo/tagify/dist/tagify.css";
+import cloud from "d3-cloud";
 
 export default {
   name: "SparcLink",
@@ -290,6 +292,124 @@ export default {
     };
   },
   methods: {
+    generateWorldCloudData: function (data) {
+      let sentences = [];
+      data.nodes.forEach((node) => {
+        if ("title" in node) {
+          sentences.push(node.title);
+        }
+
+        if ("description" in node) {
+          sentences.push(node.description);
+        }
+
+        if ("tags" in node) {
+          node.tags.forEach((item) => {
+            sentences.push(item);
+          });
+        }
+      });
+
+      let config = {
+        method: "post",
+        url: "https://megasanjay.pythonanywhere.com/wordcloud",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({ sentences: sentences }),
+      };
+
+      let that = this;
+
+      axios(config, that)
+        .then(function (response) {
+          let res = response.data.counters;
+
+          let keywords = [];
+          let values = [];
+
+          res.forEach((item, idx) => {
+            if (idx > 30 || item[0] == "") {
+              return;
+            }
+            keywords.push(item[0]);
+            values.push(item[1]);
+          });
+
+          function normalize(min, max) {
+            var delta = max - min;
+            return function (val) {
+              return (val - min) / delta;
+            };
+          }
+
+          const MAX = Math.max(...values);
+          const MIN = Math.min(...values);
+
+          values = values.map(normalize(MIN, MAX));
+
+          that.generateWordCloud(keywords, values);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    generateWordCloud: function (keywords, values) {
+      const CLOUD_SIZE = [300, 250];
+
+      const fontFamily = "Asap, Verdana, Arial, Helvetica, sans-serif";
+
+      var layout = cloud()
+        .size(CLOUD_SIZE)
+        .words(
+          keywords.map(function (d, i) {
+            return { text: d, size: 10 + values[i] * 90 };
+          })
+        )
+        .padding(5)
+        .rotate(0)
+        .font(fontFamily)
+        .fontSize(function (d) {
+          return d.size;
+        })
+        .on("end", draw);
+
+      layout.start();
+
+      function draw(words) {
+        let container = d3.select("#svgContainer");
+        container.selectAll("*").remove();
+        container
+          .append("svg")
+          .attr("width", layout.size()[0])
+          .attr("height", layout.size()[1])
+          .append("g")
+          .attr(
+            "transform",
+            "translate(" +
+              layout.size()[0] / 2 +
+              "," +
+              layout.size()[1] / 2 +
+              ")"
+          )
+          .selectAll("text")
+          .data(words)
+          .enter()
+          .append("text")
+          .classed("word-default", true)
+          .style("font-size", function (d) {
+            return d.size + "px";
+          })
+          .style("font-family", fontFamily)
+          .attr("text-anchor", "middle")
+          .attr("transform", function (d) {
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+          })
+          .text(function (d) {
+            return d.text;
+          });
+      }
+    },
     filterByNodes: function () {
       this.filterInput = "";
       this.filterLonely = false;
@@ -605,6 +725,7 @@ export default {
       } else {
         data = JSON.parse(JSON.stringify(this.filtered_data));
       }
+      this.generateWorldCloudData(data);
 
       const MAX = this.cite_max;
       const MIN = this.cite_min;
@@ -929,7 +1050,6 @@ export default {
   },
   mounted() {
     this.createViz();
-    // this.tagify = new Tagify(this.$refs.filterInput, {});
   },
 };
 </script>
