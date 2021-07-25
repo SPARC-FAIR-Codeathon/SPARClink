@@ -257,17 +257,14 @@ def getRecomendation(string, dat3, full_model, recomendation):
     fr = find_recomendation( title, lookup, correct_spell, new_model, full_model)
     return fr, correct_spell
 
-def main(string, full_model = False, recomendation = True):
-    response = req.get("https://sparclink-f151d-default-rtdb.firebaseio.com/.json")
-    dataset = response.json()
-    dat3 = dataset["ikP4sIT5PJMWFNCKG5eof5RN2Em1"]
-    ret, correct_spell = getRecomendation(string, dat3, full_model, recomendation)
+def SparcSearch(string, full_model = False, recomendation = True):
+    response = req.get("https://sparclink-f151d-default-rtdb.firebaseio.com/ikP4sIT5PJMWFNCKG5eof5RN2Em1.json")
+    dat3 = response.json()
+    ret, correct_spelling = getRecomendation(string, dat3, full_model, recomendation)
     json_string = json.dumps(ret)
     with open('data.json', 'w') as jsonfile:
          json.dump(json_string, jsonfile)
-    return ret, correct_spell
-    
-##For Demo  ---------------------------------------------
+    return ret, correct_spelling
 
-#if __name__ == '__main__':
-#    jj, cs = main("Identification of peripheral neural cercuit",False, True)
+# if __name__ == '__main__':
+#    jj, cs = SparcSearch("Identification of peripheral neural cercuit",False, True)
