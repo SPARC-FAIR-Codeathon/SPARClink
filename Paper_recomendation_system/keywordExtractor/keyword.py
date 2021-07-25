@@ -43,4 +43,6 @@ def main(n):
     dat3 = dataset["ikP4sIT5PJMWFNCKG5eof5RN2Em1"]
     ret = get_keywords(dat3, n)
     print(ret)
-    return json.dumps(ret, indent= 2)
+    with open('data.json', 'w') as jsonfile:
+         json.dump(ret, jsonfile)
+    return json.dumps(ret, indent = 2)
