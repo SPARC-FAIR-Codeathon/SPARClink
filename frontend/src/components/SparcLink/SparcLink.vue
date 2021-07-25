@@ -356,6 +356,7 @@ export default {
     },
     generateWordCloud: function (keywords, values) {
       const CLOUD_SIZE = [300, 250];
+      const that = this;
 
       const fontFamily = "Asap, Verdana, Arial, Helvetica, sans-serif";
 
@@ -375,6 +376,21 @@ export default {
         .on("end", draw);
 
       layout.start();
+
+      function handleMouseOver(d) {
+        d3.select(this)
+          .classed("word-hovered", true)
+          .transition(`mouseover-${d.text}`)
+          .duration(300)
+          .style("font-size", d.size + 10 + "px");
+      }
+
+      function handleMouseOut(d) {
+        d3.select(this)
+          .classed("word-hovered", false)
+          .interrupt(`mouseover-${d.text}`)
+          .style("font-size", d.size);
+      }
 
       function draw(words) {
         let container = d3.select("#svgContainer");
@@ -407,8 +423,17 @@ export default {
           })
           .text(function (d) {
             return d.text;
+          })
+          .on("mouseover", handleMouseOver)
+          .on("mouseout", handleMouseOut)
+          .on("click", function (d) {
+            that.addItemToFilter(d.text);
           });
       }
+    },
+    addItemToFilter(keywordPhrase) {
+      this.filterInput += ` ${keywordPhrase}`;
+      this.filterByInput();
     },
     filterByNodes: function () {
       this.filterInput = "";
@@ -561,7 +586,9 @@ export default {
         this.topRankedMaterial = [];
         this.drawCanvas();
       } else {
-        const filter_words = val.split(" ");
+        let filter_words = val.split(" ");
+        filter_words = filter_words.filter((word) => word != "");
+        
         let data = JSON.parse(JSON.stringify(this.organized_data));
 
         let removeList = [];
@@ -1063,6 +1090,10 @@ export default {
   border-width: 5px;
   height: 25px;
   width: 25px;
+}
+
+.word-hovered {
+  @apply cursor-pointer;
 }
 
 /* width */
