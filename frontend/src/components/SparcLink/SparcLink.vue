@@ -588,7 +588,7 @@ export default {
       } else {
         let filter_words = val.split(" ");
         filter_words = filter_words.filter((word) => word != "");
-        
+
         let data = JSON.parse(JSON.stringify(this.organized_data));
 
         let removeList = [];
@@ -615,9 +615,13 @@ export default {
         axios(config)
           .then(function (response) {
             const topRanked = response.data.topRanked;
+            const correctTerms = response.data.cs; //spelling corrected
             const topRankedIds = topRanked.slice(0, 10);
 
             that.topRankedMaterial = [];
+            console.log(correctTerms)
+            filter_words = correctTerms;
+            that.filterInput = correctTerms
 
             topRankedIds.forEach((item) => {
               data.nodes.forEach((node) => {
@@ -629,117 +633,117 @@ export default {
             });
 
             that.loadingSpinner = false;
+
+            data.nodes.forEach((item) => {
+              let removeFlag = true;
+              if ("tags" in item) {
+                item.tags.forEach((tag) => {
+                  filter_words.forEach((word) => {
+                    if (tag.search(word) != -1) {
+                      // console.log("Found in tag", item.id);
+                      removeFlag = false;
+                    }
+                  });
+                });
+              }
+              if ("title" in item) {
+                filter_words.forEach((word) => {
+                  if (item.title.search(word) != -1) {
+                    // console.log("Found in title", item.id);
+                    removeFlag = false;
+                  }
+                });
+              }
+              if ("description" in item) {
+                filter_words.forEach((word) => {
+                  if (item.description.search(word) != -1) {
+                    // console.log("Found in description", item.id);
+                    removeFlag = false;
+                  }
+                });
+              }
+              if ("author_list" in item) {
+                filter_words.forEach((word) => {
+                  if (item["author_list"].search(word) != -1) {
+                    // console.log("Found in author_list", item.id);
+                    removeFlag = false;
+                  }
+                });
+              }
+              if ("url" in item) {
+                filter_words.forEach((word) => {
+                  if (item.url.search(word) != -1) {
+                    // console.log("Found in url", item.id);
+                    removeFlag = false;
+                  }
+                });
+              }
+              if ("journal" in item) {
+                filter_words.forEach((word) => {
+                  if (item.journal.search(word) != -1) {
+                    // console.log("Found in journal", item.id);
+                    removeFlag = false;
+                  }
+                });
+              }
+              if (removeFlag == true) {
+                if (!removeList.includes(item.id)) {
+                  removeList.push(item.id);
+                }
+              }
+            });
+
+            that.filtered_data = { nodes: [], links: [] };
+            data.nodes.forEach((item) => {
+              if (!removeList.includes(item.id)) {
+                item.computedCitations = 0;
+                that.filtered_data.nodes.push(item);
+              }
+            });
+            data.links.forEach((item) => {
+              if (
+                !(
+                  removeList.includes(item.source) ||
+                  removeList.includes(item.target)
+                )
+              ) {
+                that.filtered_data.links.push(item);
+              }
+            });
+
+            // get citations count
+            that.filtered_data.links.forEach((link) => {
+              let source = link.source;
+              that.filtered_data.nodes.forEach((node) => {
+                if (node.id == source) {
+                  node.computedCitations = node.computedCitations + 1;
+                }
+              });
+            });
+
+            let citationsRange = [];
+            that.filtered_data.nodes.forEach((node) => {
+              citationsRange.push(node.computedCitations);
+            });
+
+            that.cite_max = Math.max.apply(Math, citationsRange);
+            that.cite_min = Math.min.apply(Math, citationsRange);
+
+            if (
+              that.filtered_data.nodes.length <
+              that.organized_data.nodes.length * 0.6
+            ) {
+              that.strength = -30;
+            } else {
+              that.strength = -12;
+            }
+
+            that.drawCanvas(true);
           })
           .catch(function (error) {
             console.log(error);
             that.loadingSpinner = false;
           });
-
-        data.nodes.forEach((item) => {
-          let removeFlag = true;
-          if ("tags" in item) {
-            item.tags.forEach((tag) => {
-              filter_words.forEach((word) => {
-                if (tag.search(word) != -1) {
-                  // console.log("Found in tag", item.id);
-                  removeFlag = false;
-                }
-              });
-            });
-          }
-          if ("title" in item) {
-            filter_words.forEach((word) => {
-              if (item.title.search(word) != -1) {
-                // console.log("Found in title", item.id);
-                removeFlag = false;
-              }
-            });
-          }
-          if ("description" in item) {
-            filter_words.forEach((word) => {
-              if (item.description.search(word) != -1) {
-                // console.log("Found in description", item.id);
-                removeFlag = false;
-              }
-            });
-          }
-          if ("author_list" in item) {
-            filter_words.forEach((word) => {
-              if (item["author_list"].search(word) != -1) {
-                // console.log("Found in author_list", item.id);
-                removeFlag = false;
-              }
-            });
-          }
-          if ("url" in item) {
-            filter_words.forEach((word) => {
-              if (item.url.search(word) != -1) {
-                // console.log("Found in url", item.id);
-                removeFlag = false;
-              }
-            });
-          }
-          if ("journal" in item) {
-            filter_words.forEach((word) => {
-              if (item.journal.search(word) != -1) {
-                // console.log("Found in journal", item.id);
-                removeFlag = false;
-              }
-            });
-          }
-          if (removeFlag == true) {
-            if (!removeList.includes(item.id)) {
-              removeList.push(item.id);
-            }
-          }
-        });
-
-        this.filtered_data = { nodes: [], links: [] };
-        data.nodes.forEach((item) => {
-          if (!removeList.includes(item.id)) {
-            item.computedCitations = 0;
-            this.filtered_data.nodes.push(item);
-          }
-        });
-        data.links.forEach((item) => {
-          if (
-            !(
-              removeList.includes(item.source) ||
-              removeList.includes(item.target)
-            )
-          ) {
-            this.filtered_data.links.push(item);
-          }
-        });
-
-        // get citations count
-        this.filtered_data.links.forEach((link) => {
-          let source = link.source;
-          this.filtered_data.nodes.forEach((node) => {
-            if (node.id == source) {
-              node.computedCitations = node.computedCitations + 1;
-            }
-          });
-        });
-
-        let citationsRange = [];
-        this.filtered_data.nodes.forEach((node) => {
-          citationsRange.push(node.computedCitations);
-        });
-
-        this.cite_max = Math.max.apply(Math, citationsRange);
-        this.cite_min = Math.min.apply(Math, citationsRange);
-
-        if (
-          this.filtered_data.nodes.length <
-          this.organized_data.nodes.length * 0.6
-        ) {
-          this.strength = -30;
-        } else {
-          this.strength = -12;
-        }
-
-        this.drawCanvas(true);
       }
     },
     drawCanvas: function (filtered = false) {
