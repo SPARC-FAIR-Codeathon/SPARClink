@@ -11,10 +11,7 @@ import string
 from nltk.corpus import stopwords
 from gensim.test.utils import datapath
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-import networkx as nx
 import requests as req
 from gensim.models import KeyedVectors
 import json
