@@ -18,10 +18,6 @@
 ```
 !pip install --upgrade gensim
 ```
-## Demo
-```
-python Sparcsearch.py "Identification of peripheral neural cercuit" False True
-```
 ## Steps for usage:
 The main function takes three inputs: 
 ```
