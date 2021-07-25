@@ -1,10 +1,11 @@
 # Spelling and Paper Recomender
 
 # Contents:
-*[Description]
-*[Requirements]
-*[Steps for usage]
-*[Demo]
+* [Description]
+* [Requirement]
+* [Steps for Usage]
+* [Demo]
+* [References]
 ## Requirement:
 ```
 !python -m nltk.downloader stopwords
