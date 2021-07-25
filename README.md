@@ -149,7 +149,7 @@ You can now open your browser and visit the url [http://localhost:8080/sparclink
 `Note:` To use the smart word filter, please refer to the frontend available in the [`smart_filter`](https://github.com/SPARC-FAIR-Codeathon/SPARClink/tree/smart_filter/frontend) branch. This feature will lead to slower render times on the graph visualization so we have not included it in the main branch.
 
 <p align="center">
-  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25 12-42-31.gif" />
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25 14-44-36.gif" />
   <br/>
   <span> SPARClink smart filter </span>
 </p>
