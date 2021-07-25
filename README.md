@@ -46,28 +46,34 @@
 - [What is SPARClink?](#what-is-sparclink)
   - [NIH SPARC](#nih-sparc)
   - [FAIR Data](#fair-data)
+  - [Defining Impact](#defining-impact)
   - [Origin Story](#origin-story)
   - [Goal](#goal)
 - [How it works](#how-it-works)
 - [Run the project](#run-the-project)
   - [Testing](#testing)
   - [Firebase Backend Implementation](#firebase-backend-implementation)
+  - [Visualization Web App](#visualization-web-app)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
+- [Further Reading](#further-reading)
 
 ## What is SPARClink?
 ### NIH SPARC
-The NIH Common Fund’s Stimulating Peripheral Activity to Relieve Conditions (SPARC) program aims to transform our understanding of nerve-organ interactions with the intent of advancing bioelectronic medicine towards treatments that change lives. [Learn more about SPARC](https://sparc.science/)
+The NIH Common Fund’s Stimulating Peripheral Activity to Relieve Conditions (SPARC) program aims to transform our understanding of nerve-organ interactions with the intent of advancing bioelectronic medicine towards treatments that change lives. [Learn more about SPARC](https://sparc.science/about)
 
 ### FAIR Data
 By employing a [FAIR](https://www.nature.com/articles/sdata201618) (Findable, Accessible, Interoperable and Reusable) first approach SPARC datasets, protocols and publications generated via the SPARC program is intended to be able to be used by researchers globally with reproducible results. However, at the current moment, there is no real tangible way to show or visualize the usage of SPARC data in outside projects and publications. 
 
 ### Origin Story
-The SPARClink project was first born as an idea at the 2021 NIH SPARC Codeathon ([More details here](https://sparc.science/help/2021-sparc-fair-codeathon)). The idea behind the topic was created as a method of visualizing citation data on datasets, protocols and publications to determine the degree of use of SPARC material outside of the official channels.
+The SPARClink project was first born as an idea at the 2021 NIH SPARC Codeathon ([more details here](https://sparc.science/help/2021-sparc-fair-codeathon)). The idea behind the topic was created as a method of visualizing citation data on datasets, protocols and publications to determine the degree of use of SPARC material outside of the official channels.
+
+### Defining Impact
+The word 'Impact' can have many different meanings depending on the context that it is viewed in. Within the SPARClink project, we consider impact to be the frequency of citations of SPARC funded resources. The SPARC program intends to advance medical understanding by providing datasets, maps and computational studies that follow FAIR principles and is used by researchers all around the world. The usage of SPARC resouces by platforms and programs ouside SPARC is what we view as the meaning of the term 'Impact'.
 
 ### Goal
-The goal of SPARClink is to provide a system that will query all external publications using open source tools and platforms and create an interactable visualization that is helpful to any regular person to showcase the impact that SPARC has on the overall scientific research community. These impact measurements are meant to be used as a showcase of the concept of FAIR data and how good data generation practices and methods are useful in advancing the field of bioelectronic medicine. 
+The goal of SPARClink is to provide a system that will query all external publications using open source tools and platforms and create an interactable visualization that is helpful to any person (researcher or otherwise) to showcase the impact that SPARC has on the overall scientific research community. These impact measurements are meant to be used as a showcase of the concept of FAIR data and how good data generation practices and methods are useful in advancing the field of bioelectronic medicine. 
 
 ## How it works?
 Metadata information on datasets and protocols are extracted from [Pennsieve](https://app.pennsieve.io/), SPARC Airtable database, and [Protocols.io](https://www.protocols.io/workspaces/sparc). This information is queried against the [NIH RePORTER](https://api.reporter.nih.gov/), [NCBI](https://www.ncbi.nlm.nih.gov/), and [Google Scholar](https://serpapi.com/google-scholar-api) to extract citations and create a well connected graph using [d3.js](https://d3js.org/). 
@@ -98,7 +104,7 @@ The application uses [python-dotenv](https://github.com/theskumar/python-dotenv)
 PROTOCOLS_IO_KEY="<protocols.io api key>"
 SERPAPI_KEY="<serpapi api key>"
 ```
-A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). Serp api key is not required at the moment. To integrate google scholar results, an API key can be obtained as [shown here](https://serpapi.com/).
+A public API key for protocols.io can be obtained by signing up as [shown here](https://www.protocols.io/developers). SERP api key is not required at the moment. To integrate google scholar results, an API key can be obtained as [shown here](https://serpapi.com/).
 
 ### Testing
 Unit tests to verify external APIs are written in Python unittest framework. The tests can be run as shown below:
@@ -112,6 +118,13 @@ Currently, the central database is implemented as a [Firebase](https://firebase.
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
 
 ### Visualization Web App
+The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally use the following commands:
+```bash
+cd frontend
+npm install
+npm run serve
+```
+You can now open your browser and visit the url [http://localhost:8080/sparclink](http://localhost:8080/sparclink) to view the webpage. 
 
 <!--Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)-->
 
@@ -123,9 +136,15 @@ To use your own Firebase instance, setup a Firebase web app as [shown here](http
 * [Sachira Kuruppu](https://github.com/rsachira-abi)
 
 ## Contributing
-See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./docs/CODE_OF_CONDUCT.md). Add a [GitHub Star](https://github.com/SPARC-FAIR-Codeathon/SPARClink) to support active development!
+If you would like to suggest an idea to this project, please let us know in the [issues](https://github.com/SPARC-FAIR-Codeathon/SPARClink/issues) page and we will take a look at your suggestion. Please use the `enhacement` tag to label your suggestion. 
+
+If you would like to add your own feature, feel free to fork the project and send a pull request our way. This is an open source project so we will welcome your contributiobs with open arms. 
+Refer to our [Contributing Guildeines](./docs/CONTRIBUTING.md) and [Code of Conduct](./docs/CODE_OF_CONDUCT.md) for more information. Add a [GitHub Star](https://github.com/SPARC-FAIR-Codeathon/SPARClink) to support active development!
 
 ## License
-See [LICENSE](./LICENSE)
+SPARClink is an open source project and distributed under the  MIT License. See [LICENSE](./LICENSE) for more details.
 
-
+## Further Reading
+- [External APIs](./ExternalAPIs/README.md)
+- [SPARC APIs](./SPARC/README.md)
+- [Visualization and frontend](./frontend/README.md)

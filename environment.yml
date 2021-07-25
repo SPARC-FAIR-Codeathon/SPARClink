@@ -5,7 +5,7 @@ dependencies:
   - python=3.9
   - pip
   - requests
-  - nodejs=12.14.1
+  - nodejs
   - yarn
   - pip:
     - pyrebase
