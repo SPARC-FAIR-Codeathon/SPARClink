@@ -3,7 +3,6 @@ import re, os
 from collections import Counter
 from symspellpy.symspellpy import SymSpell as SymSpellPy, Verbosity
 from gensim.models import Word2Vec
-from collections import Counter
 from sklearn.datasets import fetch_20newsgroups
 import re
 import nltk
