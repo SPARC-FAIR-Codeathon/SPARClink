@@ -2,10 +2,10 @@
 
 # Contents:
 * [Description](#Description)
-* [Requirement]
-* [Steps for Usage]
-* [Demo]
-* [References]
+* [Requirement](#Requirement)
+* [Steps for Usage](#Steps for Usage)
+* [Demo](#Demo)
+* [References](#References)
 
 ## Description:
 Sparcsearch.py is a recomendation system that was built with the aim to make serching for documents using keywords simpler and user friendly. There are two mechanism here. First one is a word recomendation or spelling recomendation which given a string tries to look for the most probable word in the vocabulary. The second part uses the spelling recomendation to look for papers and dataset present in the firebase dataset to get most relatable articles to whats being searched. This is based on the word embedding generated using word2vec model (the code also provides option of using GloVe embedding). Word2vec model generates a vabulary and vector representation for each article based on their title and description. when a string is serched it's vector represtenation is generated and then we measure the cosine similarity between that vector and the vector representation of each article title/description. We pick the top 10 of these to show on the website.
