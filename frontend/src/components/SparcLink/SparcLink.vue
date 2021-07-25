@@ -588,6 +588,7 @@ export default {
       if (val == "") {
         this.loadingSpinner = false;
         this.topRankedMaterial = [];
+        this.filter_words = ""
         this.drawCanvas();
       } else {
         let filter_words = val.split(" ");
@@ -625,7 +626,7 @@ export default {
             that.topRankedMaterial = [];
             console.log(correctTerms);
             filter_words = correctTerms;
-            that.filter_words = correctTerms.join(",");
+            that.filter_words = correctTerms.join(", ");
 
             topRankedIds.forEach((item) => {
               data.nodes.forEach((node) => {
