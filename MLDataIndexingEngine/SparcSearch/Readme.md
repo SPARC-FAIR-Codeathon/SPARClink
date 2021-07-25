@@ -1,4 +1,4 @@
-# Spelling and Paper Recomender
+# SPARC Search and Recommender
 
 # Contents:
 * [Description](#Description)
