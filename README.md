@@ -131,6 +131,7 @@ npm install
 npm run serve
 ```
 You can now open your browser and visit the url [http://localhost:8080/sparclink](http://localhost:8080/sparclink) to view the webpage. 
+`Note:` To use the smart word filter, please refer to the frontend available in the [`smart_filter`](https://github.com/SPARC-FAIR-Codeathon/SPARClink/tree/smart_filter/frontend) branch. This feature will lead to slower render times on the graph visualization so we have not included it in the main branch.
 
 <!--Keep track of the project [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/projects/1)-->
 
