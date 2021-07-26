@@ -37,6 +37,71 @@ The main function takes three inputs:
 
 ```python
 SparcSearch(string, full_model = False, recomendation = True)
+
+output :
+['103389fnins201900897',
+  '101016jtins202009011',
+  '101016jconb201911011',
+  '1014797FVDN2224',
+  '101016jneuron202007010',
+  '101093europaceeuy134',
+  '101038s41593-021-00828-2',
+  '101016jconb201804006',
+  '101007s10827-019-00709-5',
+  '101038s41587-019-0198-8',
+  '101038s41586-020-2474-7',
+  '101038s41586-021-03413-6',
+  '103389fncel201800469',
+  '101210endocrbqab087',
+  '101016jexpneurol2020113256',
+  '101002mds27321',
+  '103389fphys2020563372',
+  'https:dxdoiorg1026275yo5c-etlo',
+  '101016jcell201705034',
+  '101152ajpheart006352019',
+  'https:dxdoiorg1026275yum2-z4uf',
+  'https:dxdoiorg1026275eyik-qjhm',
+  '101128IAI00928-19',
+  '101523JNEUROSCI2158-192020',
+  'https:dxdoiorg1026275dv4h-izxs',
+  '101186s42234-019-0030-2',
+  '101016jneuron202009031',
+  '101038s41575-020-0271-2',
+  '101016jjacc201910046',
+  '101016jconb201712011',
+  'https:dxdoiorg1026275dn1d-owj9',
+  'https:dxdoiorg1026275iprt-7m5c',
+  'https:dxdoiorg1026275dqpf-gqdt',
+  'https:dxdoiorg1026275higx-q8hs',
+  'https:dxdoiorg1026275uxjv-kbrz',
+  '101152jn004422020',
+  'https:dxdoiorg1026275zpju-kpjd',
+  '101016jcell202005029',
+  '103389fnins2020619275',
+  '101523JNEUROSCI0743-192019',
+  '101016jomtm202102012',
+  '101146annurev-cancerbio-030419-033413',
+  ...]
+```
+Top 15 paper titles :
+
+```python
+A Student’s Guide to Neural Circuit Tracing
+Neural Circuits of Interoception
+Parenting — a paradigm for investigating the neural circuit basis of behavior
+Neural Mechanisms and Therapeutic Opportunities for Atrial Fibrillation
+Viral vectors for neural circuit mapping and recent advances in trans-synaptic anterograde tracers
+Neural ablation to treat ventricular arrhythmias
+An amygdala-to-hypothalamus circuit for social reward
+The neural circuits of thermal perception
+Emerging techniques in statistical analysis of neural data.
+Next-generation interfaces for studying neural function
+Microbes modulate sympathetic neurons via a gut-brain circuit
+An amygdala circuit that suppresses social engagement.
+Methods for Three-Dimensional All-Optical Manipulation of Neural Circuits
+The Effects of Estrogens on Neural Circuits That Control Temperature
+Targeted activation of spinal respiratory neural circuits
+...
 ```
 
 Returns the publication and dataset ids in order of relevance to search field (empty list in case of `recommendation = False`) and spelling recommendation.
