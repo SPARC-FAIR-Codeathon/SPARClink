@@ -6,7 +6,7 @@ This module uses frequency of occurance for all words preent in the vocabulary a
  
  <p align="center">
   <!--<img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/MLDataIndexingEngine/WordCloud/sparc_lungs1.png" />-->
-  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/sparclink_block_diagram-01.png" width="500"/>
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/MLDataIndexingEngine/WordCloud/sparc_lungs1.png" width="500"/>
   <br/>
   <span> Lung shaped word cloud </span>
 </p>
