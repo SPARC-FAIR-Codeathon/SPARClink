@@ -29,9 +29,9 @@
   <a href="#">
     <img src="https://img.shields.io/github/last-commit/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub last commit">
   </a>
-  <a href="#">
+<!--   <a href="#">
     <img src="https://img.shields.io/tokei/lines/github/SPARC-FAIR-Codeathon/SPARClink" alt="Lines of code">
-  </a>
+  </a> -->
   <a href="#">
     <img src="https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github" alt="Open Source? Yes!">
   </a>
@@ -133,11 +133,10 @@ To use your own Firebase instance, setup a Firebase web app as [shown here](http
 </p>
 
 ### ML Data Indexing Engine
-
-
+We have setup a [Flask](https://flask.palletsprojects.com/en/2.0.x/) server on [pythonanywhere](https://www.pythonanywhere.com/) to handle all our machine learning operations. If you would like to setup a backend for your own fork, please setup a flask server on any hosting service of your choice and modify the approriate endpoints in the `flask_app.py` file. To learn more about the techniques we used, refer to the [Further Reading](https://github.com/SPARC-FAIR-Codeathon/SPARClink#further-reading) section. 
 
 ### Visualization Web App
-The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally, use the following commands:
+The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. We use [Vue.js](https://vuejs.org/) and [Tailwind CSS](https://tailwindcss.com/) to render the demo webpage. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally, use the following commands:
 ```bash
 cd frontend
 npm install
@@ -149,7 +148,7 @@ You can now open your browser and visit the url [http://localhost:8080/sparclink
 `Note:` To use the smart word filter, please refer to the frontend available in the [`smart_filter`](https://github.com/SPARC-FAIR-Codeathon/SPARClink/tree/smart_filter/frontend) branch. This feature will lead to slower render times on the graph visualization so we have not included it in the main branch.
 
 <p align="center">
-  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25 12-42-31.gif" />
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25 14-44-36.gif" />
   <br/>
   <span> SPARClink smart filter </span>
 </p>
@@ -176,3 +175,4 @@ SPARClink is an open source project and distributed under the  MIT License. See 
 - [External APIs](./ExternalAPIs/README.md)
 - [SPARC APIs](./SPARC/README.md)
 - [Visualization and frontend](./frontend/README.md)
+- [ML Data Indexing Engine](./MLDataIndexingEngine/README.md)
