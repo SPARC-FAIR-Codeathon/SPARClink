@@ -59,6 +59,7 @@
 - [Run the project](#run-the-project)
   - [Testing](#testing)
   - [Firebase Backend Implementation](#firebase-backend-implementation)
+  - [ML Data Indexing Engine](#ml-data-indexing-engine)
   - [Visualization Web App](#visualization-web-app)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
