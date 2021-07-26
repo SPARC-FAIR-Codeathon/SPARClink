@@ -59,7 +59,7 @@ this.simulation = d3
 You may define your own forces to act on the nodes or use d3's default forces. Please be aware that the canvas itself has a limit on the amount of nodes that can be drawn in its context before performance takes a hit. Within our own testing 8,000 to 10,000 nodes is the limit of acceptable performance. If your database is larger than this amount, please see if you can filter out any nodes that are present in the data.
 
 ## Adjusting the wordcloud
-The [d3-cloud](https://github.com/jasondavies/d3-cloud) library is used to generate the visualizations. To modify the rendered image, edit the lines of code below. The data for the function is returned from the backend api found [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/MLDataIndexingEngine/README.md#word-cloud)
+The [d3-cloud](https://github.com/jasondavies/d3-cloud) library is used to generate the visualizations. To modify the rendered image, edit the lines of code below. The data for the function is returned from the backend api found [here](https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/MLDataIndexingEngine/README.md#word-cloud).
 ```javascript
 var layout = cloud()
   .size([300,300])
