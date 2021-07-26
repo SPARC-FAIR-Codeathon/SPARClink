@@ -8,9 +8,7 @@ Requirements
 ```
 !pip install keybert[all]
 ```
-```
-python 
-output
+```python 
 [('cardiometabolic', 1.5051),
  ('heart', 1.5151000000000001),
  ('piezo1', 1.516),
