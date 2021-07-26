@@ -3,7 +3,7 @@
 This module is used to run additional analytics on the search terms for a more smarter SPARClink experience. There are three submodules in this section that references the three key features that are used by SPARClink.
 
 ## Keyword Extraction
-content here
+This module is used to generate keyword using keyBERT pretrained model. It generates top 50 key words associated with the whole document. It also make use of Maximal marginal relevence algorithm to pick key words that have higher distance among them. This is to ensure diversity among the choosen key words.
 
 ## SPARC Search
 This module is primarily used for the Top 10 recommended related items in the bottom left panel. Filter keywords are passed to the function via a https request and the server will return a list of most relevant publications, protocols and datasets. The second query parameter is used for the smart filter feature that can be found in the [`smart_filter`](https://github.com/SPARC-FAIR-Codeathon/SPARClink/tree/smart_filter) branch. A list of what we think is the right word is returned in the response.
