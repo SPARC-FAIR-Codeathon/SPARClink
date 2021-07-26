@@ -588,7 +588,7 @@ export default {
       } else {
         let filter_words = val.split(" ");
         filter_words = filter_words.filter((word) => word != "");
-        
+
         let data = JSON.parse(JSON.stringify(this.organized_data));
 
         let removeList = [];
@@ -962,14 +962,9 @@ export default {
         obj.ogKey = obj.doi;
         obj.id = item;
         obj.computedCitations = 0;
-        if ("direct" in obj) {
-          if (obj.direct) {
-            obj.group = "sparc publication";
-            obj.color = "#FF9000";
-          } else {
-            obj.group = "non sparc publication";
-            obj.color = "#109CFF";
-          }
+        if ("awards" in obj) {
+          obj.group = "sparc publication";
+          obj.color = "#FF9000";
         } else {
           obj.group = "non sparc publication";
           obj.color = "#109CFF";

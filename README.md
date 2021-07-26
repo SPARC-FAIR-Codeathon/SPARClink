@@ -125,12 +125,20 @@ Currently, the central database is implemented as a [Firebase](https://firebase.
 
 To use your own Firebase instance, setup a Firebase web app as [shown here](https://firebase.google.com/docs/web/setup), and update `firebaseConfig` in `FirebaseImplementation.py` with the new API keys. [Setup a new user](https://firebase.google.com/docs/auth/web/password-auth), and configure the [real-time database](https://firebase.google.com/docs/database/web/start). It is recommended to limit the database write permission to authenticated users. Run `FireabaseImplementation.py` and enter user's email/password when prompted.
 
+<p align="center">
+  <!--<img src="https://user-images.githubusercontent.com/21206996/125478715-d5f83b6f-8a6d-4ef8-a845-952baa27d8da.png" />-->
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/backend_flow_chart-01.png" width="500"/>
+  <br/>
+  <span>Backend Flow Chart: Shows the methods implemented in the backend to gather citations of datasets, protocols, and SPARC publications.</span>
+</p>
+
 ### ML Data Indexing Engine
+We have setup a [Flask](https://flask.palletsprojects.com/en/2.0.x/) server on [pythonanywhere](https://www.pythonanywhere.com/) to handle all our machine learning operations. If you would like to setup a backend for your own fork, please setup a flask server on any hosting service of your choice and modify the approriate endpoints in the `flask_app.py` file. To learn more about the techniques we used, refer to the [Further Reading](https://github.com/SPARC-FAIR-Codeathon/SPARClink#further-reading) section. 
 
-
+The machine learning engine provides smart search feature to the end user. The engine also contains algorithm that learns vector embeddings of the discriptors of the elements present in the sparclink dataset. Based on these vector embeddings the algorithms computes the similarity between the vectors representing of each word in the vocabulary with the vector represnting the whole dataset and finds keywords that would describe the dataset. We show case these keywords based on their relevance in our word cloud. We have multiple options for searching for keywords in our codebase each providing a different level of performance in terms of time complexity and explainability. We use [Symspell algorithm](https://github.com/wolfgarbe/symspell) trained on the dataset present in the sikit learn package as well as the vocabulary built using sparclink dataset. We use delete-only edit candidate generation for generating different combinations of spelling error and uses both character level embedding and word embedding for recommending most probable correct spelling. The output of the spell correction algorithm is used to generate sentence level embedding and is then compared with the embeddings of different discriptors of the items in the dataset. We obtain a ranking of all the items in the dataset based on their similarity with the searched string. We chose the top 10 to showcase on the website. For easy search users can click on the keywords and it gets appended to the search string. For demo refer to the gif above. More details regarding the functions can be found in the ML directory. 
 
 ### Visualization Web App
-The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally, use the following commands:
+The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. We use [Vue.js](https://vuejs.org/) and [Tailwind CSS](https://tailwindcss.com/) to render the demo webpage. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally, use the following commands:
 ```bash
 cd frontend
 npm install
@@ -142,7 +150,7 @@ You can now open your browser and visit the url [http://localhost:8080/sparclink
 `Note:` To use the smart word filter, please refer to the frontend available in the [`smart_filter`](https://github.com/SPARC-FAIR-Codeathon/SPARClink/tree/smart_filter/frontend) branch. This feature will lead to slower render times on the graph visualization so we have not included it in the main branch.
 
 <p align="center">
-  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25 12-42-31.gif" />
+  <img src="https://github.com/SPARC-FAIR-Codeathon/SPARClink/blob/main/docs/images/2021-07-25 14-44-36.gif" />
   <br/>
   <span> SPARClink smart filter </span>
 </p>
@@ -169,3 +177,4 @@ SPARClink is an open source project and distributed under the  MIT License. See 
 - [External APIs](./ExternalAPIs/README.md)
 - [SPARC APIs](./SPARC/README.md)
 - [Visualization and frontend](./frontend/README.md)
+- [ML Data Indexing Engine](./MLDataIndexingEngine/README.md)
