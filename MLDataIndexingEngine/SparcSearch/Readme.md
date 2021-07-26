@@ -58,3 +58,7 @@ Returns the publication and dataset ids in order of relevance to search field (e
 python Sparcsearch.py "Identification of peripheral neural cercuit" False True
 ```
 ## References:
+1. For Symspell look below:
+    1. https://github.com/wolfgarbe/symspell
+    2. https://wolfgarbe.medium.com/1000x-faster-spelling-correction-algorithm-2012-8701fcd87a5f
+2. [GloVe](https://nlp.stanford.edu/projects/glove/)
