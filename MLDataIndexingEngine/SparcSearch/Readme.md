@@ -55,7 +55,9 @@ Returns the publication and dataset ids in order of relevance to search field (e
 
 
 ## Demo:
-```python Sparcsearch.py "neoral cercuit" False True```
+```
+python Sparcsearch.py "neoral cercuit" False True
+```
 ```python
 output :
 ['103389fnins201900897',
@@ -121,7 +123,6 @@ Methods for Three-Dimensional All-Optical Manipulation of Neural Circuits
 The Effects of Estrogens on Neural Circuits That Control Temperature
 Targeted activation of spinal respiratory neural circuits
 ...
-```
 ```
 ## References:
 1. For Symspell look below:
