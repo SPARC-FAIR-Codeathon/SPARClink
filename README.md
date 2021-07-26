@@ -29,9 +29,9 @@
   <a href="#">
     <img src="https://img.shields.io/github/last-commit/SPARC-FAIR-Codeathon/SPARClink" alt="GitHub last commit">
   </a>
-  <a href="#">
+<!--   <a href="#">
     <img src="https://img.shields.io/tokei/lines/github/SPARC-FAIR-Codeathon/SPARClink" alt="Lines of code">
-  </a>
+  </a> -->
   <a href="#">
     <img src="https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github" alt="Open Source? Yes!">
   </a>
