@@ -59,7 +59,6 @@
 - [Run the project](#run-the-project)
   - [Testing](#testing)
   - [Firebase Backend Implementation](#firebase-backend-implementation)
-  - [ML Data Indexing Engine](#ml-data-indexing-engine)
   - [Visualization Web App](#visualization-web-app)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
@@ -135,6 +134,7 @@ To use your own Firebase instance, setup a Firebase web app as [shown here](http
 
 ### ML Data Indexing Engine
 We have setup a [Flask](https://flask.palletsprojects.com/en/2.0.x/) server on [pythonanywhere](https://www.pythonanywhere.com/) to handle all our machine learning operations. If you would like to setup a backend for your own fork, please setup a flask server on any hosting service of your choice and modify the approriate endpoints in the `flask_app.py` file. To learn more about the techniques we used, refer to the [Further Reading](https://github.com/SPARC-FAIR-Codeathon/SPARClink#further-reading) section. 
+The machine learning engine provides smart search feature to the end user. The engine also contains algorithm that learns vector embeddings of the discriptors of the elements present in the sparclink dataset. Based on these vector embeddings the algorithms computes the similarity between the vectors representing of each word in the vocabulary with the vector represnting the whole dataset and finds keywords that would describe the dataset. We have multiple options for searching for keywords in our codebase each providing a different level of performance in terms of time complexity and explainability. We use [Symspell algorithm](https://github.com/wolfgarbe/symspell) trained on the dataset present in the sikit learn package as well as the vocabulary built using sparclink dataset. We use delete-only edit candidate generation for generating different combinations of spelling error and uses both character level embedding and word embedding for recommending most probable correct spelling. The output of the spell correction algorithm is used to generate sentence level embedding and is then compared with the embeddings of different discriptors of the items in the dataset. We obtain a ranking of all the items in the dataset based on their similarity with the searched string. We chose the top 10 to showcase on the website. More details can be found in the ML directory. 
 
 ### Visualization Web App
 The vizualizations created from the realtime database can be viewed directly from our [demo page](https://sparclink-f151d.web.app/sparclink) or by running the local version of our frontend. We use [Vue.js](https://vuejs.org/) and [Tailwind CSS](https://tailwindcss.com/) to render the demo webpage. The interactive force directed graph is created via [d3.js](https://d3js.org/) using data requested from our Firebase real-time database. Within the SPARClink demo page we use the HTML canvas element to render the visualization. In order to get your forked repo frontend to run locally, use the following commands:
