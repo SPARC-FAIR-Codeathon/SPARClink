@@ -12,7 +12,7 @@ This is a recommendation system that was built with the aim to make searching fo
 
 First is a word recommendation or spelling recommendation which takes a given string looks for the most probable word in the vocabulary. 
 
-The second part uses the spelling recommendation to look for publications and datasets present in the Firebase real-time daatabase to get most relatable articles with respect to the search terms. This is based on a word embedding generated using a word2vec model (the code also provides option of using GloVe embedding). 
+The second part uses the spelling recommendation to look for publications and datasets present in the Firebase real-time daatabase to get most relatable articles with respect to the search terms. This is based on a word embedding generated using a word2vec model. GloVe is an unsupervised algorithm that attempts to obtain high-dimensional vector representations of words using global word-word co-occurrence. This has been shown to encode interesting semantic information and to encode semantically related words nearby one another. (the code also provides option of using GloVe embedding). 
 
 Word2vec model generates a vocabulary and vector representation for each article based on their title and description. When a string is serched its vector representation is generated and the cosine similarity between that vector and the vector representation of each article title/description is measured.
 
