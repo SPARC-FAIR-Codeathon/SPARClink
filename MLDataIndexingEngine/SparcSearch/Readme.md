@@ -106,7 +106,7 @@ output :
 ```
 Top 15 paper titles :
 
-```python
+```
 A Student’s Guide to Neural Circuit Tracing
 Neural Circuits of Interoception
 Parenting — a paradigm for investigating the neural circuit basis of behavior
