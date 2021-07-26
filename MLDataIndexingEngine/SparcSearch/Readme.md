@@ -37,7 +37,7 @@ The main function takes three inputs:
 
 ```python
 SparcSearch(string, full_model = False, recomendation = True)
-
+```
 
 
 Returns the publication and dataset ids in order of relevance to search field (empty list in case of `recommendation = False`) and spelling recommendation.
