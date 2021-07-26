@@ -38,6 +38,25 @@ The main function takes three inputs:
 ```python
 SparcSearch(string, full_model = False, recomendation = True)
 
+
+
+Returns the publication and dataset ids in order of relevance to search field (empty list in case of `recommendation = False`) and spelling recommendation.
+1. To switch off the recommendation system for papers set `recommendation` to `False`. This will then only run the spelling recommendation. 
+
+2. If `recommendation = True` the code will perform spelling recommendation followed by paper recommendation.
+
+3. To train the model using the Glove dataset :
+   1. Download https://nlp.stanford.edu/data/glove.6B.zip 
+   2. `!unzip glove.6B.zip`
+   3. `get_glove2wv()`
+   4. Set `full_model` to True
+
+3. To run the code only on the words and tags associated with the dataset keep full model = Flase
+
+
+## Demo:
+```python Sparcsearch.py "neoral cercuit" False True```
+```python
 output :
 ['103389fnins201900897',
   '101016jtins202009011',
@@ -103,24 +122,6 @@ The Effects of Estrogens on Neural Circuits That Control Temperature
 Targeted activation of spinal respiratory neural circuits
 ...
 ```
-
-Returns the publication and dataset ids in order of relevance to search field (empty list in case of `recommendation = False`) and spelling recommendation.
-1. To switch off the recommendation system for papers set `recommendation` to `False`. This will then only run the spelling recommendation. 
-
-2. If `recommendation = True` the code will perform spelling recommendation followed by paper recommendation.
-
-3. To train the model using the Glove dataset :
-   1. Download https://nlp.stanford.edu/data/glove.6B.zip 
-   2. `!unzip glove.6B.zip`
-   3. `get_glove2wv()`
-   4. Set `full_model` to True
-
-3. To run the code only on the words and tags associated with the dataset keep full model = Flase
-
-
-## Demo:
-```
-python Sparcsearch.py "Identification of peripheral neural cercuit" False True
 ```
 ## References:
 1. For Symspell look below:
