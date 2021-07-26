@@ -1087,10 +1087,6 @@ export default {
   width: 25px;
 }
 
-.word-hovered {
-  @apply cursor-pointer;
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
